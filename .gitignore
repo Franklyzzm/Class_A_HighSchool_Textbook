@@ -1,0 +1,9 @@
+# 忽略过程文件
+*.aux
+*.log
+*.synctex.gz
+
+*.bcf
+*.out
+*.run.xml
+*.toc
