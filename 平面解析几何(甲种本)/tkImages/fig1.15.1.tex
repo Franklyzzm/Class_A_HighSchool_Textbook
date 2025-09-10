@@ -1,0 +1,36 @@
+%\documentclass[tikz, border=5pt]{standalone}
+\begin{document}
+	\begin{tikzpicture}[>=stealth, scale=0.8]
+		% 绘制坐标轴
+		\draw[->] (-2,0) -- (4,0) node[below] {$x$}; % x轴（带箭头和标签）
+		\draw[->] (0,-2) -- (0,3) node[below left] {$y$}; % y轴（带箭头和标签）
+		\node at (0,0) [below left] {$O$};           % 原点O的标签
+		
+		% 直线l y=x-1
+		\draw[thick] (-1, -2) -- (3, 2) node[above right] {$l$};
+		
+		% 角度α（辅助线+角度标记）
+		%	\draw[dashed] (1,0) -- (1, -0.5); % 垂直辅助线
+		%	\pic[draw, angle radius=0.8cm, "$\alpha$"] % 绘制并标记角度
+		%	{angle=(1,-0.5)--(1,0)--(-1,-1.5)};
+		
+		% x方向箭头（增强示意）
+		\draw[->] (2, 0) arc (0:45:1) node[midway] {$\alpha$};
+		
+	\end{tikzpicture}
+	
+%	\begin{tikzpicture}[>=stealth, scale=0.8] % 箭头样式为stealth，
+%		% 绘制坐标轴
+%\draw[->] (-2,0) -- (4,0) node[below] {$x$}; % x轴（带箭头和标签）
+%\draw[->] (0,-2) -- (0,3) node[below left] {$y$}; % y轴（带箭头和标签）
+%\node at (0,0) [below left] {$O$};           % 原点O的标签
+%
+%% 直线l
+%\draw[thick] (2.5, -1) -- (-1, 2) node[left] {$l$};
+%
+%% x方向箭头（增强示意）
+%		\draw[->] (2, 0) arc (0:140:0.6) node[midway] {$\alpha$};
+%		
+%	\end{tikzpicture}
+
+\end{document}
