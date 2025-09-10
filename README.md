@@ -1,4 +1,44 @@
-# 下载链接
+# Class A High School Textbook
+
+数理化 甲种本高中教材
+
+
+
+用tikz作图代替扫描截图，全系列转化为ElegantBook风格。
+
+Franklyzzm
+
+
+
+进度：
+
+| 科目         | 修改内容             | 开始时间 | 完成时间 |
+| ------------ | -------------------- | -------- | -------- |
+| 平面解析几何 | tikz作图代替扫描截图 | 2025.9.8 |          |
+|              |                      |          |          |
+|              |                      |          |          |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 下载链接
 
 [微积分(Elegantbook重排版)，正式版本](https://github.com/geezhu/Category-A-Textbook/releases/tag/v1.0)
 
@@ -12,7 +52,7 @@
 
 [影印版甲(乙)种本(包含教师用书)](https://pan.quark.cn/s/d6e43ee688bc)
 
-# 项目由来
+## 项目由来
 
 之后看到[fanhongtao](https://github.com/fanhongtao/ebooks)已经编辑了一段时间，但还有书籍未完成，遂加入此行列。
 
@@ -20,7 +60,7 @@
 
 geezhu 2024.08.07
 
-# 项目进度
+## 项目进度
 
 鉴于[fanhongtao](https://github.com/fanhongtao/ebooks)以及 [james](https://github.com/jamesfang8499/)已完成或正在完成的电子化工作
 
@@ -41,9 +81,11 @@ geezhu 2024.08.07
 | 7  | 物理II (乙版本) | 待修复 (2024-08-07 ~ )  |
 
 **更新Notes**：
+
 * **20240809**,使用Elegant模板对《微积分初步》初步完成排版，后续将进行问题修复，以及排版优化（加入定义框啥的）
 * **20240811**,使用Elegant模板对《平面解析几何》初步完成排版，后续将进行问题修复，以及排版优化（加入定义框啥的）
-# 相关工作
+
+## 相关工作
 
 鉴于 [fanhongtao](https://github.com/fanhongtao/ebooks)已经完成了或处理如下工作
 * 1.代数全三册
@@ -63,12 +105,12 @@ geezhu 2024.08.07
 
 * [平面解析几何 全一册](https://www.latexstudio.net/index/details/index/mid/2401.html)
 * 
-# 其它
+
+## 其它
 
 * 本项目依赖于 [TexLive](http://tug.org/texlive/) 2023，建议先从 [Acquiring TeX Live as an ISO image](http://tug.org/texlive/acquire-iso.html) 下载 ISO 文件，再进行安装。
 * 需要先将各书本目录的 `pic-pdf` 子目录下的 `tex` 文件编译成 `pdf` 文件，才能编译书本。
 ---
-
 
 
 
