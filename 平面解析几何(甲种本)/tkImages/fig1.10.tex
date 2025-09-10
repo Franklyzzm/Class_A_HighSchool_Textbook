@@ -1,0 +1,38 @@
+%\documentclass[ctex,tikz, border=5pt]{standalone}
+\begin{document}
+	% 图(1)
+	\begin{tikzpicture}[scale=0.6]
+		\node[left] at (-1, 0) {(甲)};            % 左编号
+		% 绘制主水平线
+		\draw[->, >=stealth, line width=1pt] (-1,0) -- (5,0);
+		\node[below] at (4.8,0) {$l$};
+		
+		% 6个小竖线标记点（从左到右）
+		\draw (1,0.1) -- (1,-0.1); \node[above] at (1,0) {$P_1$};   % 第一个竖线标记
+		\draw (2,0.1) -- (2,-0.1); \node[above] at (2,0) {$P$};   % 第二个竖线标记
+		\draw (3,0.1) -- (3,-0.1); \node[above] at (3,0) {$P_2$};   % 第三个竖线标记
+	\end{tikzpicture}
+	
+	% 图(2)
+	\begin{tikzpicture}[scale=0.6]
+		\node[left] at (-1, 0) {(乙)}; 		% 左编号
+		\draw[->, >=stealth, line width=1pt] (-1,0) -- (5,0); 		% 绘制水平线
+		\node[below] at (4.8,0) {$l$}; 
+		\foreach \pos/\label in {0/P, 1/P_1, 3/P_2} {    % 点P、P₂、P₁的位置
+			\draw (\pos, 0.1) -- (\pos, -0.1);       % 竖线标记
+			\node[above] at (\pos, 0) {$\label$};    % 点标签（上方）
+		}
+	\end{tikzpicture}
+	
+	% 图(3)
+	\begin{tikzpicture}[scale=0.6]
+		\node[left] at (-1, 0) {(丙)}; 		% 左编号
+		\draw[->, >=stealth, line width=1pt] (-1,0) -- (5,0); 		% 绘制水平线
+		\node[below] at (4.8,0) {$l$}; 
+		\foreach \pos/\label in {1/P_1, 3/P_2, 4/P} {
+			\draw (\pos, 0.1) -- (\pos, -0.1);
+			\node[above] at (\pos, 0) {$\label$};
+		}
+	\end{tikzpicture}
+	
+\end{document}
