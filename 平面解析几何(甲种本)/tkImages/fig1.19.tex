@@ -1,0 +1,17 @@
+%\documentclass[tikz, border=5pt]{standalone}
+\begin{document}
+	\begin{tikzpicture}[>=stealth, scale=0.8]
+		% 绘制坐标轴
+		\draw[->] (-2,0) -- (3,0) node[below] {$x$}; % x轴（带箭头和标签）
+		\draw[->] (0,-1) -- (0,4) node[below left] {$y$}; % y轴（带箭头和标签）
+		\node at (0,0) [below left] {$O$};           % 原点O的标签
+		
+		% 直线l y=2.5
+		\draw[thick] (-1.5, 2.5) -- (2.5, 2.5) node[below right] {$l$}; 
+		
+		% 标记各点的标签
+		\fill (-0.5,2.5) circle (2pt) node[below] {$P_1$};  % 点P_1
+		
+	\end{tikzpicture}
+	
+\end{document}
