@@ -1,0 +1,9 @@
+%\documentclass[tikz,border=5pt]{standalone}
+\begin{document}
+	\begin{tikzpicture}
+		% 绘制射线，从原点(0,0)出发向右延伸5cm，右侧有三角形箭头
+		\draw[->, >=stealth, line width=1pt] (0,0) -- ++(5cm,0);
+		% 在射线上方添加标签l
+		\node[above] at (2.5cm, 0.2cm) {$l$};
+	\end{tikzpicture}
+\end{document}
