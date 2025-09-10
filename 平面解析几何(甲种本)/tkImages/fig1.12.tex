@@ -1,0 +1,24 @@
+%\documentclass[tikz, border=5pt]{standalone}
+\begin{document}
+	\begin{tikzpicture}[>=stealth, scale=0.5] % 箭头样式为 stealth，整体缩放优化显示
+		
+		% 绘制坐标轴
+		\draw[->] (-3,0) -- (4.5,0) node[below] {$x$}; % x 轴（带箭头与标签）
+		\draw[->] (0,-9) -- (0,1.5) node[below left] {$y$}; % y 轴（带箭头与标签）
+		\node at (0,0) [below left] {$O$}; % 原点 $O$ 的标签
+		
+		% 定义各关键点坐标（可根据图形比例调整）
+		\coordinate (P1) at (-1,-6);   % 点 $P_1$
+		\coordinate (P2)  at (3,0);    % 点 $P$
+		\coordinate (P) at (-7/3,-8);    % 点 $P_2$
+		
+		% 绘制连接 $P_1, P, P_2$ 的直线
+		\draw [line width=1pt] (-8/3,-8.5) -- (10/3,0.5)  ;
+		
+		% 标记各点的标签 实心圆点
+		\fill (P) circle (2pt) node [right] {$P$};  % 带标签的实心点
+		\fill (P1) circle (2pt) node [left]  {$P_1$};  % 带标签的实心点
+		\fill (P2) circle (2pt) node [above left]  {$P_2$};  % 带标签的实心点
+
+	\end{tikzpicture}
+\end{document}
