@@ -12,19 +12,20 @@ Franklyzzm
 
 进度：
 
-| 科目                             | 修改内容             | 开始时间 | 完成时间 |
-| -------------------------------- | -------------------- | -------- | -------- |
-| 平面解析几何 Coordinate Geometry | tikz作图代替扫描截图 | 2025.9.8 |          |
-|                                  |                      |          |          |
-|                                  |                      |          |          |
+| 科目                                 | 修改内容             | 开始时间 | 完成时间 |
+| ------------------------------------ | -------------------- | -------- | -------- |
+| 平面解析几何 Plane Analytic Geometry | tikz作图代替扫描截图 | 2025.9.8 |          |
+|                                      |                      |          |          |
+|                                      |                      |          |          |
 
 
 
 ### terminology
 
-Coordinate Geometry 解析几何
-
-Solid Geometry 立体几何
+- 平面解析几何：Plane Analytic Geometry
+- 平面几何：Plane Geometry
+- 立体几何：Solid Geometry
+- Coordinate Geometry 坐标几何
 
 
 
