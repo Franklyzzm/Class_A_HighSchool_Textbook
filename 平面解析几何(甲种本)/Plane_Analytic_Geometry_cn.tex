@@ -98,13 +98,13 @@
 
 平面解析几何研究的主要问题是:
 
-(1)根据已知条件, 求出表示平面曲线的方程;
+(1) 根据已知条件，求出表示平面曲线的方程；
 
-(2)通过方程, 研究平面曲线的性质.
+(2) 通过方程，研究平面曲线的性质。
 
-解析几何的这种研究方法, 在进一步学习数学、物理和其他科学技术中经常使用.
+解析几何的这种研究方法，在进一步学习数学、物理和其他科学技术中经常使用。
 
-在十七世纪, 法国数学家笛卡儿创始了解析几何. 解析几何的产生对数学发展, 特别是对微积分的出现起了促进作用; 恩格斯对笛卡儿的这一发现给予了高度的评价.
+在十七世纪，法国数学家笛卡儿创始了解析几何。解析几何的产生对数学发展，特别是对微积分的出现起了促进作用，恩格斯对笛卡儿的这一发现给予了高度的评价。
 
 \chapter{直 线}
 
@@ -2090,11 +2090,10 @@ D_y = \left| \begin{array}{cc}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[max width=0.4\textwidth]{images/01912cc2-ffb6-728e-9ae7-b113ff05c64b_52_702387.jpg}
+%  \includegraphics[max width=0.4\textwidth]{images/01912cc2-ffb6-728e-9ae7-b113ff05c64b_52_702387.jpg}
+  \input{tkImages/fig1.33.tex}
   \caption{图 1-33}
 \end{figure}
-
-
 
 解: 解方程组
 
@@ -2175,12 +2174,23 @@ D_y = \left| \begin{array}{cc}
 根据定义,点 \(P\) 到直线 \(l\) 的距离是点 \(P\) 到直线 \(l\) 的垂线段的长(图 1-34).
 
 \begin{figure}[h]
-  \centering
-  \includegraphics[max width=0.9\textwidth]{images/01912cc2-ffb6-728e-9ae7-b113ff05c64b_54_863018.jpg}
-  \caption{图 1-34}
+	\centering
+	% 左侧图片：宽度设置为0.45倍文本宽度，预留间距
+	\begin{subfigure}[h]{0.45\textwidth}
+		\centering
+%		\includegraphics[max width=0.9\textwidth]{images/01912cc2-ffb6-728e-9ae7-b113ff05c64b_54_863018.jpg}
+		\input{tkImages/fig1.34.1.tex}
+		\caption{甲}
+	\end{subfigure}
+	\hfill % 两个图片之间添加空白填充，确保左右分布
+	% 右侧图片：宽度设置为0.45倍文本宽度
+	\begin{subfigure}[h]{0.45\textwidth}
+		\centering
+		\input{tkImages/fig1.34.2.tex}
+		\caption{乙}
+	\end{subfigure}
+	\caption{图 1-34}
 \end{figure}
-
-
 
 设点 \(P\) 到直线 \(l\) 的垂线为 \({l}^{\prime }\) ,垂足为 \(Q\) . 由 \({l}^{\prime } \bot l\) 可知 \({l}^{\prime }\) 的斜率为 \(\frac{B}{A}\left( {A \neq 0}\right)\) ,根据点斜式可写出 \({l}^{\prime }\) 的方程,并由 \(l\) 与 \({l}^{\prime }\) 的方程求出点 \(Q\) 的坐标; 由此即可根据两点距离公式求出 \(\left| {PQ}\right|\) ,这就是点 \(P\) 到直线 \(l\) 的距离.
 
@@ -2274,17 +2284,9 @@ D_y = \left| \begin{array}{cc}
     {2x} - {7y} + 8 = 0
 \]
 
-的距离.
+的距离。
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[max width=0.5\textwidth]{images/01912cc2-ffb6-728e-9ae7-b113ff05c64b_56_427717.jpg}
-  \caption{图 1-35}
-\end{figure}
-
-
-
-因此,
+因此，
 
 \[
   d = \frac{\left| 2 \times 3 - 7 \times 0 + 8\right| }{\sqrt{{2}^{2} + {\left( -7\right) }^{2}}}
@@ -2293,6 +2295,13 @@ D_y = \left| \begin{array}{cc}
 \[
   = \frac{14}{\sqrt{53}} = \frac{{14}\sqrt{53}}{53}
 \]
+
+\begin{figure}[h]
+	\centering
+	%  \includegraphics[max width=0.5\textwidth]{images/01912cc2-ffb6-728e-9ae7-b113ff05c64b_56_427717.jpg}
+	\input{tkImages/fig1.35.tex}
+	\caption{图 1-35}
+\end{figure}
 
 \begin{problemset}[练习]
 
@@ -2516,11 +2525,10 @@ D_y = \left| \begin{array}{cc}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[max width=0.3\textwidth]{images/01912cc2-ffb6-728e-9ae7-b113ff05c64b_64_551024.jpg}
+%  \includegraphics[max width=0.3\textwidth]{images/01912cc2-ffb6-728e-9ae7-b113ff05c64b_64_551024.jpg}
+  \input{tkImages/xit1.2.tex}
   \caption{(第 21题)}
 \end{figure}
-
-
 
 22. 过两点 \(A\left( {-3,2}\right)\) 和 \(B\left( {6,1}\right)\) 的直线与直线 \(x + {3y} - 6 = 0\) 交于点 \(P\) . 求点 \(P\) 分 \(\overline{AB}\) 所成的比.
 

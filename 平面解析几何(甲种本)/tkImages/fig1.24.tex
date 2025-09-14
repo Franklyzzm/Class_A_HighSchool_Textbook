@@ -1,11 +1,11 @@
 %\documentclass[tikz, border=5pt]{standalone}
 \usetikzlibrary{patterns} % 加载斜线阴影库
 \begin{document}
-	\begin{tikzpicture}[>=stealth, scale=1]
+	\begin{tikzpicture}[>=stealth, scale=0.8]
 		
 		% 5. 绘制阴影区域（东北斜线填充）位于最下层，
 		\filldraw[pattern=north east lines, pattern color=gray!50] (-1.5,-2) -- (-2,-2) -- (-2,6) -- (2.5,6)  ;
-		\draw[white]  (-1.5,-2) -- (-2,-2) -- (-2,6) -- (2.5,6);
+		\draw[white] (-1.5,-2) -- (-2,-2) -- (-2,6) -- (2.5,6);
 		
 		% 1. 绘制坐标轴
 		\draw[->] (-2,0) -- (3,0) node[below] {$x$}; % x轴（带箭头和标签）
