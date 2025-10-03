@@ -1,6 +1,7 @@
 \documentclass[lang=cn,newtx,12pt,scheme=chinese]{elegantbook}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+%\usepackage[T1]{fontspec}  % 通过 fontspec 宏包指定支持 Unicode 的字体
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -15,6 +16,20 @@
 \usepackage{esint}
 \usepackage{xeCJK}
 \usepackage{adjustbox}
+
+\usepackage{pifont}   % 带圈数字基础
+
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption} % 新增subcaption宏包，处理并排图片
+\usepackage{geometry}
+\usepackage[normalem]{ulem}
+
+\captionsetup[figure]{labelformat=empty} % 关键设置：取消插图序号
+\captionsetup[figure]{labelsep=space} % 关键设置：取消子图序号（a、b）
+\captionsetup[subfigure]{labelformat=empty} % 子图标题不显示编号
+
 \newcommand{\HRule}{\begin{center}\rule{0.5\linewidth}{0.2mm}\end{center}}
 \newcommand{\customfootnote}[1]{
 	\let\thefootnote\relax\footnotetext{#1}
@@ -25,9 +40,9 @@
 
 \author{人民教育出版社数学室}
 \institute{人民教育出版社}
-\date{1985年 9 月}
-\version{第 1 版}
-\bioinfo{排版}{geezhu}
+\date{1985年9月}
+\version{第1版}
+\bioinfo{排版}{geezhu, franklyzzm}
 
 \extrainfo{人民教育出版社}
 
@@ -54,24 +69,23 @@
 \chapter*{说 明}
 \markboth{说 明}{说 明}
 
+一、本书供六年制中学高中三年级选用。
 
-一、本书供六年制中学高中三年级选用.
+二、本书内容包括: 极限; 导数和微分; 导数的应用; 不定积分; 定积分及其应用。 学完这些内容, 约需 84 课时。 其中标有 “* ”号的内容, 供学生选学。
 
-二、本书内容包括: 极限; 导数和微分; 导数的应用; 不定积分; 定积分及其应用. 学完这些内容, 约需 84 课时. 其中标有 “* ”号的内容, 供学生选学.
+三、本书的习题共分三类: 练习、习题和复习参考题。
 
-三、本书的习题共分三类: 练习
+1. 练习  主要供课堂练习用。
 
-1. 练习 主要供课堂练习用. 编辑
+2. 习题  主要供课内外作业用。
 
-2. 习题 主要供课内外作业 \(\nabla = 0\) 时
+3. 复习参考题  在每章后配备\(A\text{、}B\) 两组复习参考题。A组题主要供复习本章知识时使用；B 组题略带综合性、灵活性，仅供学有余力的学生参考使用。
 
-3. 复习参考题 在每章后配包组题主要供复习本章知识时使用; B 组题略带综合性、灵活性, 仅供学有余力的学生参考使用.
+为了使教学更有针对性和灵活性，本书配备的练习、习题和复习参考题 \(A\) 组数量较多，便于教学时根据实际情况选用。
 
-为了使教学更有针对性和灵活性, 本书配备的练习、习题和复习参考题 \(A\) 组数量较多,便于教学时根据实际情况选用.
+四、本书在编写过程中，曾参考了中小学通用教材数学编写组编写的全日制十年制学校高中课本(试用本)《数学》第四册的有关章节，大部分内容是以原来章节为基础编写的。
 
-四、本书在编写过程中, 曾参考了中小学通用教材数学编写组编写的全日制十年制学校高中课本(试用本)《数学》第四册的有关章节, 大部分内容是以原来章节为基础编写的.
-
-五、本书由人民教育出版社数学室编写. 参加编写工作的有方明一、刘远图、曾宪源、于琛等。全书由于琛校订。
+五、本书由人民教育出版社数学室编写。 参加编写工作的有方明一、刘远图、曾宪源、于琛等。全书由于琛校订。
 
 \frontmatter
 
@@ -80,7 +94,7 @@
 \mainmatter
 
 \chapter{极 限}
-
+%\markboth{引 言}{极 限}
 
 \section{数列的极限}
 
@@ -96,25 +110,30 @@
 
 为了直观起见, 我们把这两个数列中的前几项分别在数轴上表示出来(图 1-1):
 
-\begin{center}
-	\includegraphics[width=0.5\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_4_159408.jpg}
+\begin{figure}[h]
+	\centering
+	% 左侧图片：宽度设置为0.45倍文本宽度，预留间距
+	\begin{subfigure}[h]{0.45\textwidth}
+		\centering
+		\includegraphics[max width=\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_4_159408.jpg}
+%		\input{tkImages/fig1.1.tex}
+		\caption{(1)}
+	\end{subfigure}
+	\hfill % 两个图片之间添加空白填充，确保左右分布
+	% 右侧图片：宽度设置为0.45倍文本宽度
+	\begin{subfigure}[h]{0.45\textwidth}
+		\centering
+%		\includegraphics[width=\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_4_459236.jpg}
+		\includegraphics[max width=\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_4_459236.jpg}
+%		\input{tkImages/fig1.2.tex}
+		\caption{(2)}
+	\end{subfigure}
+	\caption{图 1-1}
+\end{figure}
 
-\end{center}
+容易看出,当项数 \(n\) 无限增大时,数列 (1) 中的项无限趋近于 0 , 数列 (2) 中的项无限趋近于 1 。
 
-\begin{center}
-	(1)
-\end{center}
-
-
-\begin{center}
-	\includegraphics[width=0.5\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_4_459236.jpg}
-\end{center}
-
-图 1-1
-
-容易看出,当项数 \(n\) 无限增大时,数列 (1) 中的项无限趋近于 0 , 数列 (2) 中的项无限趋近于 1 .
-
-事实上, 在数列 (1) 中, 各项与 0 的差的绝对值如下页的表所示.
+事实上, 在数列 (1) 中, 各项与 0 的差的绝对值如下页的表所示。
 
 我们看到,无论预先指定多么小的一个正数 \(\varepsilon\) ,总能在
 
@@ -144,11 +163,11 @@
 	}
 \end{center}
 
-数列 (1) 中找到这样一项, 使得这一项后面的所有项与 0 的差的绝对值都小于 \(\varepsilon\) . 例如,如果取 \(\varepsilon = \frac{1}{5}\) ,那么数列 (1) 中第 5 项后面所有的项与 0 的差的绝对值都小于 \(\varepsilon\) . 如果取 \(\varepsilon = \frac{1}{100}\) , 那么数列 (1) 中第 100 项后面所有的项与 0 的差的绝对值都小于 \(\varepsilon\) . 在这种情况下,我们就说数列 (1) 的极限是 0 .
+数列 (1) 中找到这样一项, 使得这一项后面的所有项与 0 的差的绝对值都小于 \(\varepsilon\) 。 例如,如果取 \(\varepsilon = \frac{1}{5}\) ,那么数列 (1) 中第 5 项后面所有的项与 0 的差的绝对值都小于 \(\varepsilon\) 。 如果取 \(\varepsilon = \frac{1}{100}\) , 那么数列 (1) 中第 100 项后面所有的项与 0 的差的绝对值都小于 \(\varepsilon\) 。 在这种情况下,我们就说数列 (1) 的极限是 0 。
 
-同样, 对于数列 (2), 我们也可以列成下页的表.
+同样, 对于数列 (2), 我们也可以列成下页的表。
 
-可以看出,如果取 \(\varepsilon = {0.1}\) ,那么数列 (2) 中第 3 项后面所有的项与 1 的差的绝对值都小于 \(\varepsilon\) ; 如果取 \(\varepsilon = {0.01}\) ,那么第 6 项后面所有的项与 1 的差的绝对值都小于 \(\varepsilon\) . 就是说,无论预先指定多么小的一个正数 \(\varepsilon\) ,总能在数列(2)中找到这样一
+可以看出,如果取 \(\varepsilon = {0.1}\) ,那么数列 (2) 中第 3 项后面所有的项与 1 的差的绝对值都小于 \(\varepsilon\) ; 如果取 \(\varepsilon = {0.01}\) ,那么第 6 项后面所有的项与 1 的差的绝对值都小于 \(\varepsilon\) 。 就是说,无论预先指定多么小的一个正数 \(\varepsilon\) ,总能在数列(2)中找到这样一
 
 \begin{center}
 	\adjustbox{max width=\textwidth}{
@@ -176,23 +195,19 @@
 	}
 \end{center}
 
-项,使得这一项后面的所有项与 1 的差的绝对值都小于 \(\varepsilon\) . 这时, 我们说数列 (2) 的极限是 1 .
+项,使得这一项后面的所有项与 1 的差的绝对值都小于 \(\varepsilon\) 。 这时, 我们说数列 (2) 的极限是 1 。
 
 \begin{definition}[数列的极限]
 一般地,对于一个无穷数列 \(\left\{ {a}_{n}\right\}\) ,如果存在一个常数 \(A\) , 无论预先指定多么小的正数 \(\varepsilon\) ,都能在数列中找到一项 \({a}_{N}\) ,使得这一项后面所有的项与 \(A\) 的差的绝对值都小于 \(\varepsilon\) (即当 \(n >\) \(N\) 时, \(\left| {{a}_{n} - A}\right| < \varepsilon\) 恒成立),就把常数 \(A\) 叫做数列 \(\left\{ {a}_{n}\right\}\) 的极限, 记作
-
 \[
-\mathop{\lim }\limits_{{n \rightarrow \infty }}{a}_{n} = A\text{. O }
+\mathop{\lim }\limits_{{n \rightarrow \infty }}{a}_{n} = A\text{.❶\ding{172}}
 \]
-
 \end{definition}
 
-这个式子读作 “当 \(n\) 趋向于无穷大时, \({a}_{n}\) 的极限等于 \({A}^{n}\) . “->” 表示 “趋向于”, “ \(\infty\) ” 表示 “无穷大”, “ \(n \rightarrow \infty\) ” 表示 “ \(n\) 趋向于无穷大”,也就是 \(n\) 无限增大的意思.
+这个式子读作 “当 \(n\) 趋向于无穷大时, \({a}_{n}\) 的极限等于 \({A}^{n}\) 。 “->” 表示 “趋向于”, “ \(\infty\) ” 表示 “无穷大”, “ \(n \rightarrow \infty\) ” 表示 “ \(n\) 趋向于无穷大”,也就是 \(n\) 无限增大的意思。
 
 \customfootnote{
-	
-	O lim 是拉丁文 limis (极限) 一词的前三个字母, 一般按英文 limit (极限) 一词读音. \(\mathop{\lim }\limits_{{n \rightarrow \infty }}{a}_{n} = A\) 也可读作 “limit \({a}_{n}\) 当 \(n\) 趋于无穷大时等于 \({A}^{n}\) .
-	
+	❶\ding{172} lim 是拉丁文 limis (极限) 一词的前三个字母, 一般按英文 limit (极限) 一词读音。 \(\mathop{\lim }\limits_{{n \rightarrow \infty }}{a}_{n} = A\) 也可读作 “limit \({a}_{n}\) 当 \(n\) 趋于无穷大时等于 \({A}^{n}\) 。
 }
 
 \(\mathop{\lim }\limits_{{n \rightarrow \infty }}{a}_{n} = A\) 有时也可记作
@@ -201,7 +216,7 @@
 \text{当}n \rightarrow \infty \text{时,}{a}_{n} \rightarrow A\text{.}
 \]
 
-从数列极限的定义可以看出,数列 \(\left\{ {a}_{n}\right\}\) 以 \(A\) 为极限,是指当 \(n\) 无限增大时,数列 \(\left\{ {a}_{n}\right\}\) 中的项 \({a}_{n}\) 无限趋近于常数 \(A\) .
+从数列极限的定义可以看出,数列 \(\left\{ {a}_{n}\right\}\) 以 \(A\) 为极限,是指当 \(n\) 无限增大时,数列 \(\left\{ {a}_{n}\right\}\) 中的项 \({a}_{n}\) 无限趋近于常数 \(A\) 。
 
 例 1 已知数列
 
@@ -209,7 +224,7 @@
 1, - \frac{1}{2},\frac{1}{3}, - \frac{1}{4},\cdots ,{\left( -1\right) }^{n + 1}\frac{1}{n},\cdots \text{.}
 \]
 
-(1) 写出这个数列的各项与 0 的差的绝对值.
+（1） 写出这个数列的各项与 0 的差的绝对值。
 
 （2）第几项后面所有的项与 0 的差的绝对值都小于 0.1 ? 都小于 0.001 ? 都小于 0.0003 ?
 
@@ -219,11 +234,11 @@
 
 解: 这个数列的项在数轴上的表示如图 1-2:
 
-\begin{center}
-	\includegraphics[max width=0.9\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_7_608223.jpg}
-\end{center}
-
-图 1-2
+\begin{figure}[h]
+	\centering
+	\includegraphics[max width=0.8\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_7_608223.jpg}
+	\caption{图 1-2}
+\end{figure}
 
 （1）这个数列的各项与 0 的差的绝对值依次是
 
@@ -231,13 +246,13 @@
 1,\frac{1}{2},\frac{1}{3},\cdots ,\frac{1}{n},\cdots
 \]
 
-（2）要使 \(\frac{1}{n} < {0.1}\) ,只要 \(n > {10}\) 就行了. 这就是说,第 10 项后面所有的项与 0 的差的绝对值都小于 0.1 .
+（2）要使 \(\frac{1}{n} < {0.1}\) ,只要 \(n > {10}\) 就行了。 这就是说,第 10 项后面所有的项与 0 的差的绝对值都小于 0.1 。
 
-要使 \(\frac{1}{n} < {0.001}\) ,只要 \(n > {1000}\) 就行了. 这就是说,第 1000 项后面所有的项与 0 的差的绝对值都小于 0.001 .
+要使 \(\frac{1}{n} < {0.001}\) ,只要 \(n > {1000}\) 就行了。 这就是说,第 1000 项后面所有的项与 0 的差的绝对值都小于 0.001 。
 
-要使 \(\frac{1}{n} < {0.0003}\) ,只要 \(n > {3333}\frac{1}{3}\) 就行了. 这就是说,第 3333 项后面所有的项与 0 的差的绝对值都小于 0.0003 .
+要使 \(\frac{1}{n} < {0.0003}\) ,只要 \(n > {3333}\frac{1}{3}\) 就行了。 这就是说,第 3333 项后面所有的项与 0 的差的绝对值都小于 0.0003 。
 
-（3）要使 \(\frac{1}{n} < \varepsilon\) ,只要 \(n > \frac{1}{\varepsilon }\) 就行了,因为所求的项数必须是正整数,因此设 \(\frac{1}{e}\) 的整数部分是 \(N\) ,那么第 \(N\) 项后面所有的项与 0 的差的绝对值都小于 \(\varepsilon\) .
+（3）要使 \(\frac{1}{n} < \varepsilon\) ,只要 \(n > \frac{1}{\varepsilon }\) 就行了,因为所求的项数必须是正整数,因此设 \(\frac{1}{e}\) 的整数部分是 \(N\) ,那么第 \(N\) 项后面所有的项与 0 的差的绝对值都小于 \(\varepsilon\) 。
 
 （4）从（3）可以知道, 0 是这个数列的极限, 记作:
 
@@ -251,7 +266,7 @@
 \frac{1}{2},\frac{2}{3},\frac{3}{4},\cdots ,\frac{n}{n + 1},\cdots
 \]
 
-(1) 计算 \(\left| {{a}_{n} - 1}\right|\) .
+（1）计算 \(\left| {{a}_{n} - 1}\right|\) .
 
 （2）第几项后面所有的项与 1 的差的绝对值都小于 \(\frac{1}{100}\) ?
 
@@ -259,13 +274,13 @@
 
 （4） 1 是不是这个数列的极限?
 
-解: (1) \(\left| {{a}_{n} - 1}\right| = \left| {\frac{n}{n + 1} - 1}\right| = \left| \frac{-1}{n + 1}\right| = \frac{1}{n + 1}\) .
+解: （1） \(\left| {{a}_{n} - 1}\right| = \left| {\frac{n}{n + 1} - 1}\right| = \left| \frac{-1}{n + 1}\right| = \frac{1}{n + 1}\) .
 
-（2）要使 \(\frac{1}{n + 1} < \frac{1}{100}\) ,就是要使 \(n + 1 > {100}\) ,即 \(n > {99}\) ,这就是说,第 99 项后面所有的项与 1 的差的绝对值都小于 \(\frac{1}{100}\) .
+（2）要使 \(\frac{1}{n + 1} < \frac{1}{100}\) ,就是要使 \(n + 1 > {100}\) ,即 \(n > {99}\) ,这就是说,第 99 项后面所有的项与 1 的差的绝对值都小于 \(\frac{1}{100}\) 。
 
-（3）要使 \(\frac{1}{n + 1} < \varepsilon\) ,就是要使 \(n + 1 > \frac{1}{\varepsilon }\) ,即 \(n > \frac{1}{\varepsilon } - 1\) ,设 \(\frac{1}{\varepsilon } - 1\) 的整数部分是 \(N\) ,那么第 \(N\) 项后面所有的项与 1 的差的绝对值都小于正数 \(\varepsilon\) .
+（3）要使 \(\frac{1}{n + 1} < \varepsilon\) ,就是要使 \(n + 1 > \frac{1}{\varepsilon }\) ,即 \(n > \frac{1}{\varepsilon } - 1\) ,设 \(\frac{1}{\varepsilon } - 1\) 的整数部分是 \(N\) ,那么第 \(N\) 项后面所有的项与 1 的差的绝对值都小于正数 \(\varepsilon\) 。
 
-(4) 从 (3) 可以知道, 这个数列的极限是 1 , 记作:
+（4） 从（3）可以知道, 这个数列的极限是 1 , 记作:
 
 \[
 \mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{n}{n + 1} = 1
@@ -277,25 +292,25 @@
 \frac{1}{2},\frac{1}{4},\frac{1}{8},\cdots ,\frac{1}{{2}^{n}}\cdots
 \]
 
-(1) 计算 \(\left| {{a}_{n} - 0}\right|\) .
+（1）计算 \(\left| {{a}_{n} - 0}\right|\) .
 
 （2）第几项后面所有的项与 0 的差的绝对值小于正数 \(\varepsilon\) ?
 
 （3） 0 是不是这个数列的极限?
 
-解: (1) \(\left| {{a}_{n} - 0}\right| = \left| {\frac{1}{{2}^{n}} - 0}\right| = \frac{1}{{2}^{n}}\) .
+解: （1） \(\left| {{a}_{n} - 0}\right| = \left| {\frac{1}{{2}^{n}} - 0}\right| = \frac{1}{{2}^{n}}\) .
 
 （2）要使 \(\frac{1}{{2}^{n}} < \varepsilon\) ,就是要使 \(n > \frac{\ln \frac{1}{\varepsilon }}{\ln 2}\) . 设 \(\frac{\ln \frac{1}{\varepsilon }}{\ln 2}\) 的整数部分是 \(N\) ,那么第 \(N\) 项后面所有的项与 0 的差的绝对值都小于正数 \(\varepsilon\) .
 
-（3）从 \(\left( 2\right)\) 可以知道,这个数列的极限是 0 ,记作
+（3）从 （2）可以知道,这个数列的极限是 0 ,记作
 
 \[
-\mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{1}{{2}^{n}} = 0
+\mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{1}{{2}^{n}} = 0 \text{.}
 \]
 
-例 4 求常数数列 \(- 7, - 7, - 7,\cdots\) 的极限.
+例 4 求常数数列 \(- 7, - 7, - 7,\cdots\) 的极限。
 
-解: 这个数列的各项与 -7 的差的绝对值都等于 0 , 所以从第 1 项起,这个绝对值就能够小于任意指定的正数 \(\varepsilon\) ,因此这个数列的极限是 -7 .
+解: 这个数列的各项与 -7 的差的绝对值都等于 0 , 所以从第 1 项起,这个绝对值就能够小于任意指定的正数 \(\varepsilon\) ,因此这个数列的极限是 -7 。
 
 一般地, 任何一个常数数列的极限都是这个常数本身, 即
 
@@ -303,13 +318,13 @@
 \mathop{\lim }\limits_{{n \rightarrow \infty }}C = C\text{ ( }C\text{ 是常数). }
 \]
 
-应该指出, 并不是每一个无穷数列都有极限. 例如, 数列
+应该指出, 并不是每一个无穷数列都有极限。 例如, 数列
 
 \[
 1,2,3,\cdots ,n,\cdots
 \]
 
-就没有极限.
+就没有极限。
 
 数列
 
@@ -317,7 +332,7 @@
 - 1,1, - 1,1,\cdots ,{\left( -1\right) }^{n},\cdots
 \]
 
-也没有极限.
+也没有极限。
 
 \begin{problemset}[练习]
 	\item 已知数列
@@ -343,16 +358,14 @@
 	(3) 确定这个数列的极限。
 \end{problemset}
 
-
-
 \section{数列极限的四则运算}
-前面我们看到, 一些简单的数列可以从变化趋势找出它们的极限. 例如,
+前面我们看到, 一些简单的数列可以从变化趋势找出它们的极限。 例如,
 
 \[
 \mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{1}{n} = 0,\;\mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{1}{{2}^{n}} = 0,\;\mathop{\lim }\limits_{{n \rightarrow \infty }}C = C.
 \]
 
-如果求极限的数列比较复杂, 就要分析已知数列是由哪些简单的数列经过怎样的运算结合而成的, 这样就能把复杂的数列的极限的计算问题转化为简单的数列的极限的计算问题. 因此, 下面引入数列极限的四则运算法则 (证明从略):
+如果求极限的数列比较复杂, 就要分析已知数列是由哪些简单的数列经过怎样的运算结合而成的, 这样就能把复杂的数列的极限的计算问题转化为简单的数列的极限的计算问题。 因此, 下面引入数列极限的四则运算法则 (证明从略):
 
 \[
 \text{如果}\mathop{\lim }\limits_{{n \rightarrow \infty }}{a}_{n} = A,\mathop{\lim }\limits_{{n \rightarrow \infty }}{b}_{n} = B\text{,那么,}
@@ -376,7 +389,7 @@
 \mathop{\lim }\limits_{{n \rightarrow \infty }}\left( {C \cdot {a}_{n}}\right) = \mathop{\lim }\limits_{{n \rightarrow \infty }}C \cdot \mathop{\lim }\limits_{{n \rightarrow \infty }}{a}_{n} = {CA}.
 \]
 
-上面的数列极限的四则运算法则表明: 如果两个数列都有极限, 那么, 这两个数列的各对应项的和、差、积、商组成的数列的极限, 分别等于这两个数列的极限的和、差、积、商 (各项作为除数的数列的极限不能为零).
+上面的数列极限的四则运算法则表明: 如果两个数列都有极限, 那么, 这两个数列的各对应项的和、差、积、商组成的数列的极限, 分别等于这两个数列的极限的和、差、积、商 (各项作为除数的数列的极限不能为零)。
 
 例如, 数列
 
@@ -396,7 +409,7 @@
 2 + \frac{1}{2},2 + \frac{2}{3},2 + \frac{3}{4},\cdots ,2 + \frac{n}{n + 1},\cdots
 \]
 
-的极限是 3 .
+的极限是 3 。
 
 例 1 已知 \(\mathop{\lim }\limits_{{n \rightarrow \infty }}{a}_{n} = 5,\mathop{\lim }\limits_{{n \rightarrow \infty }}{b}_{n} = 3\) ,求 \(\mathop{\lim }\limits_{{n \rightarrow \infty }}\left( {3{a}_{n} - 4{b}_{n}}\right)\) .
 
@@ -428,7 +441,7 @@
 = 3 - 2 \times 0 = 3\text{. }
 \]
 
-（3）当 \(n\) 无限增大时,分式 \(\frac{{2n} + 1}{{3n} + 2}\) 中的分子、分母同时无限增大, 上面的极限运算法则不能直接运用. 为此, 我们将分式中的分子、分母同时除以 \(n\) 后求它的极限,得
+（3）当 \(n\) 无限增大时,分式 \(\frac{{2n} + 1}{{3n} + 2}\) 中的分子、分母同时无限增大, 上面的极限运算法则不能直接运用。 为此, 我们将分式中的分子、分母同时除以 \(n\) 后求它的极限,得
 
 \[
 \mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{{2n} + 1}{{3n} + 2} = \mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{2 + \frac{1}{n}}{3 + \frac{2}{n}}
@@ -458,7 +471,7 @@
 \frac{1}{2},\frac{1}{4},\frac{1}{8},\cdots ,\frac{1}{{2}^{n}},\cdots
 \]
 
-求这个数列前 \(n\) 项的和当 \(n \rightarrow \infty\) 时的极限.
+求这个数列前 \(n\) 项的和当 \(n \rightarrow \infty\) 时的极限。
 
 解: 这个等比数列的公比是
 
@@ -486,17 +499,17 @@ q = \frac{\frac{1}{4}}{\frac{1}{2}} = \frac{1}{2}.
 = 1 - 0 = 1\text{. }
 \]
 
-\begin{center}
-	\includegraphics[max width=0.3\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_14_791114.jpg}
-\end{center}
-
-图 1-3
+\begin{figure}[h]
+	\centering
+	\includegraphics[max width=0.8\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_14_791114.jpg}
+	\caption{图 1-3}
+\end{figure}
 
 上述结果可从图 1-3 中看出, 图 1-3 中各小矩形与小正
 
-方形面积的和 (阴影部分) 的极限等于大正方形的面积.
+方形面积的和 (阴影部分) 的极限等于大正方形的面积。
 
-例 3 中的无穷等比数列有这样的特点: 它的公比的绝对值小于 1 .
+例 3 中的无穷等比数列有这样的特点: 它的公比的绝对值小于 1 。
 
 一般地, 设无穷等比数列
 
@@ -504,7 +517,7 @@ q = \frac{\frac{1}{4}}{\frac{1}{2}} = \frac{1}{2}.
 {a}_{1},{a}_{1}q,{a}_{1}{q}^{2},\cdots ,{a}_{1}{q}^{n - 1},\cdots
 \]
 
-的公比 \(q\) 的绝对值小于 1,我们来求它的前 \(n\) 项的和当 \(n\) 无限增大时的极限.
+的公比 \(q\) 的绝对值小于 1,我们来求它的前 \(n\) 项的和当 \(n\) 无限增大时的极限。
 
 无穷等比数列前 \(n\) 项的和是
 
@@ -532,37 +545,37 @@ q = \frac{\frac{1}{4}}{\frac{1}{2}} = \frac{1}{2}.
 \mathop{\lim }\limits_{{n \rightarrow \infty }}{S}_{n} = \frac{{a}_{1}}{1 - q} \cdot \left( {1 - 0}\right) = \frac{{a}_{1}}{1 - q}.
 \]
 
-公比的绝对值小于 1 的无穷等比数列前 \(n\) 项的和当 \(n\) 无限增大时的极限, 叫做这个无穷等比数列各项的和(注意: 这与有限个数的和从意义上说是不一样的),并且用符号 \(S\) 表示. 从上面知道,
+公比的绝对值小于 1 的无穷等比数列前 \(n\) 项的和当 \(n\) 无限增大时的极限, 叫做这个无穷等比数列各项的和(注意: 这与有限个数的和从意义上说是不一样的),并且用符号 \(S\) 表示。 从上面知道,
 
 \[
 S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots = \frac{{a}_{1}}{1 - q}.
 \]
 
-例 4 求无穷等比数列 \({0.3},{0.03},{0.003},\cdots\) 各项的和.
+例 4 求无穷等比数列 \({0.3},{0.03},{0.003},\cdots\) 各项的和。
 
 解: \(\because {a}_{1} = {0.3},q = {0.1}\) ,
 
 \[
-\therefore \;S = \frac{0.3}{1 - {0.1}} = \frac{1}{3}\text{. }
+\therefore \;S = \frac{0.3}{1 - {0.1}} = \frac{1}{3} \text{. }
 \]
 
 例 5 将下列循环小数化成分数:
 
-(1) 0.7 ; (2) 0.231 .
+(1) \(0.\dot{7}\) ; 				(2) \(0.2\dot{3}\dot{1}\) . 
 
-解: (1) 纯循环小数 \({0.7} = {0.777}\cdots\) 可以写成
+解: (1) 纯循环小数 \(0.\dot{7} = {0.777}\cdots\) 可以写成
 
 \[
-\frac{7}{10} + \frac{7}{100} + \frac{7}{1000} + \cdots
+\frac{7}{10} + \frac{7}{100} + \frac{7}{1000} + \cdots \text{，}
 \]
 
 这里各项组成公比等于 \(\frac{1}{10}\) 的无穷等比数列,因此,
 
 \[
-{0.7} = \frac{\frac{7}{10}}{1 - \frac{1}{10}} = \frac{\frac{7}{10}}{\frac{9}{10}} = \frac{7}{9}
+{0.\dot{7}}= \frac{\frac{7}{10}}{1 - \frac{1}{10}} = \frac{\frac{7}{10}}{\frac{9}{10}} = \frac{7}{9} \text{，}
 \]
 
-也就是说, \({0.7} = \frac{7}{9}\) .
+也就是说, \({0.7} = \frac{7}{9}\) 。
 
 （2）混循环小数 \({0.231} = {0.2313131}\cdots\) 可以写成
 
@@ -596,24 +609,25 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 (1) \(3,1,\frac{1}{3},\frac{1}{9},\cdots\) ; (2) \(1, - \frac{1}{2},\frac{1}{4}, - \frac{1}{8},\cdots\) .
 
 \end{problemset}
+
 \begin{problemset}[习题一]
 	\item 已知无穷数列 \(5 + 1,5 - \frac{1}{2},5 + \frac{1}{3},5 - \frac{1}{4},\cdots\) .
 	
-	（1）把这个数列的前 5 项在数轴上表示出来.
+	（1）把这个数列的前 5 项在数轴上表示出来。
 	
-	（2）计算这个数列的第 \(n\) 项与 5 的差的绝对值 \(\left| {{a}_{n} - 5}\right|\) .
+	（2）计算这个数列的第 \(n\) 项与 5 的差的绝对值 \(\left| {{a}_{n} - 5}\right|\) 。
 	
-	（3）对于任何预先指定的正数 \(\varepsilon\) ,找一个自然数 \(N\) ,使得 \(n > N\) 时, \(\left| {{a}_{n} - 5}\right| < \varepsilon\) .
+	（3）对于任何预先指定的正数 \(\varepsilon\) ,找一个自然数 \(N\) ,使得 \(n > N\) 时, \(\left| {{a}_{n} - 5}\right| < \varepsilon\) 。
 	
 	（4）确定这个数列的极限。
 	
-	\item 一个无穷数列的通项公式是 \({a}_{n} = \frac{n + 1}{n + 2}\) .
+	\item 一个无穷数列的通项公式是 \({a}_{n} = \frac{n + 1}{n + 2}\) 。
 	
 	（1）把这个数列的前 5 项在数轴上表示出来。
 	
-	（2）计算 \(\left| {{a}_{n} - 1}\right|\) .
+	（2）计算 \(\left| {{a}_{n} - 1}\right|\) 。
 	
-	（3）对于下表中的 \(\varepsilon\) ,各找出一个对应的自然数 \(N\) ,使得 \(n > N\) 时, \(\left| {{a}_{n} - 1}\right| < \varepsilon\) .
+	（3）对于下表中的 \(\varepsilon\) ,各找出一个对应的自然数 \(N\) ,使得 \(n > N\) 时, \(\left| {{a}_{n} - 1}\right| < \varepsilon\) 。
 	
 	\begin{center}
 		\adjustbox{max width=\textwidth}{
@@ -627,19 +641,19 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 		}
 	\end{center}
 	
-	（4）确定这个数列的极限.
+	（4）确定这个数列的极限。
 	
-	\item 一个无穷数列的通项公式是 \({a}_{n} = \frac{{8n} + 1}{2n}\) .
+	\item 一个无穷数列的通项公式是 \({a}_{n} = \frac{{8n} + 1}{2n}\) 。
 	
-	（1）把这个数列的前 5 项在数轴上表示出来.
+	（1）把这个数列的前 5 项在数轴上表示出来。
 	
-	（2）计算 \(\left| {{a}_{n} - 4}\right|\) .
+	（2）计算 \(\left| {{a}_{n} - 4}\right|\) 。
 	
 	（3）确定这个无穷数列的极限。
 	
 	\item 一个无穷数列的通项公式是 \({a}_{n} = \frac{n}{{2n} + 1}\) ,求证这个数列的极限是 \(\frac{1}{2}\) 。
 	
-	\item 举一个极限是 5 的无穷数列的例子.
+	\item 举一个极限是 5 的无穷数列的例子。
 	
 	\item 无穷数列 \(- 2,0, - 2,0,\cdots ,{\left( -1\right) }^{n} - 1,\cdots\) 有极限吗?
 	
@@ -653,9 +667,9 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 	\frac{1}{3},\frac{2}{4},\frac{3}{5},\cdots ,\frac{n}{n + 2},\cdots
 	\]
 	
-	（1）求证这两个数列的极限分别是 5 与 1 .
+	（1）求证这两个数列的极限分别是 5 与 1 。
 	
-	（2）另作一个每一项都等于这两个数列的对应项的和的无穷数列. 验证所得数列的极限等于这两个数列的极限的和。
+	（2）另作一个每一项都等于这两个数列的对应项的和的无穷数列。 验证所得数列的极限等于这两个数列的极限的和。
 	
 	\item 求下列极限:
 	
@@ -669,35 +683,43 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 	
 	\item (1) 求 \(\mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{1 + 2 + \cdots + n}{{n}^{2}}\)
 	
-	（2）求 \(\mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{{1}^{2} + {2}^{2} + \cdots + {n}^{2}}{{n}^{3}}\) .
+	（2）求 \(\mathop{\lim }\limits_{{n \rightarrow \infty }}\frac{{1}^{2} + {2}^{2} + \cdots + {n}^{2}}{{n}^{3}}\) 。
 	
 	\[
 	\text{(提示:}{1}^{2} + {2}^{2} + \cdots + {n}^{2} = \frac{n\left( {n + 1}\right) \left( {{2n} + 1}\right) }{6}\text{.}
 	\]
 	
-	\item (1) 如图,在圆的内接正多边形中, \({r}_{n}\) 是边心距, \({p}_{n}\) 是周长, \({S}_{n}\) 是面积,求证 \({S}_{n} = \frac{1}{2}{p}_{n}{r}_{n}\) .
+	\item (1) 如图,在圆的内接正多边形中, \({r}_{n}\) 是边心距, \({p}_{n}\) 是周长, \({S}_{n}\) 是面积,求证 \({S}_{n} = \frac{1}{2}{p}_{n}{r}_{n}\) 。
 	
-	（2）当圆的内接正多边形的边数无限增加时, \({r}_{n}\) 的极限是圆的半径 \(R,{p}_{n}\) 的极限是圆周长 \({2\pi R},{S}_{n}\) 的极限是圆面积,求证圆面积等于 \(\pi {R}^{2}\) .
+	（2）当圆的内接正多边形的边数无限增加时, \({r}_{n}\) 的极限是圆的半径 \(R,{p}_{n}\) 的极限是圆周长 \({2\pi R},{S}_{n}\) 的极限是圆面积,求证圆面积等于 \(\pi {R}^{2}\) 。
 	
-	\item 如图,三角形的一条底边是 \(a\) ,这条边上的高是 \(h\) .
+	\item 如图,三角形的一条底边是 \(a\) ,这条边上的高是 \(h\) 。
 	
-	（1）过高的 5 等分点分别作底边的平行线, 并作出相应的 4 个矩形, 求这些矩形面积的和.
+	（1）过高的 5 等分点分别作底边的平行线, 并作出相应的 4 个矩形, 求这些矩形面积的和。
 	
-	（2）把高 \(n\) 等分,同样作出 \(n - 1\) 个矩形,求这些矩形面积的和.
+	（2）把高 \(n\) 等分,同样作出 \(n - 1\) 个矩形,求这些矩形面积的和。
 	
-	（3）求证: 当 \(n\) 无限增大时,这些矩形面积的和的极限等于三角形的面积 \(\frac{ah}{2}\) .
+	（3）求证: 当 \(n\) 无限增大时,这些矩形面积的和的极限等于三角形的面积 \(\frac{ah}{2}\) 。
 	
-	\begin{center}
-		\includegraphics[max width=0.3\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_20_155049.jpg}
-	\end{center}
-	
-	(第 10 题)
-	
-	\begin{center}
-		\includegraphics[max width=0.4\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_20_862371.jpg}
-	\end{center}
-	
-	(第 11 题)
+		\begin{figure}[h]
+		\centering
+		% 左侧图片：宽度设置为0.45倍文本宽度，预留间距
+		\begin{subfigure}[h]{0.45\textwidth}
+			\centering
+			\includegraphics[max width=\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_20_155049.jpg}
+			%		\input{tkImages/fig1.1.tex}
+			\caption{(第10题)}
+		\end{subfigure}
+		\hfill % 两个图片之间添加空白填充，确保左右分布
+		% 右侧图片：宽度设置为0.45倍文本宽度
+		\begin{subfigure}[h]{0.45\textwidth}
+			\centering
+			\includegraphics[max width=\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_20_862371.jpg}
+			%		\input{tkImages/fig1.2.tex}
+			\caption{	(第11题)}
+		\end{subfigure}
+		%		\caption{图}
+	\end{figure}
 	
 	\item 求下列无穷等比数列各项的和:
 	
@@ -707,21 +729,29 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 	
 	(3) \(\frac{\sqrt{3} + 1}{\sqrt{3} - 1},1,\frac{\sqrt{3} - 1}{\sqrt{3} + 1},\cdots\) ;
 	
-	(4) \(1, - x,{x}^{2}, - {x}^{3},\cdots ,\left( {\left| x\right| < 1}\right)\) .
+	(4) \(1, - x,{x}^{2}, - {x}^{3},\cdots ,\left( {\left| x\right| < 1}\right)\) 。
 	
 	\item 如图,等边三角形 \({ABC}\) 的面积等于 1,连结这个三角形各边的中点得到一个小三角形, 又连结这个小三角形各边的中点得到一个更小的三角形, 如此无限继续下去, 求所有这些三角形面积的和。
 	
-	\begin{center}
-		\includegraphics[max width=0.4\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_20_529798.jpg}
-	\end{center}
-	
-	(第 13 题)
-	
-	\begin{center}
-		\includegraphics[max width=0.4\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_20_500122.jpg}
-	\end{center}
-	
-	(第 14 题)
+	\begin{figure}[h]
+		\centering
+		% 左侧图片：宽度设置为0.45倍文本宽度，预留间距
+		\begin{subfigure}[h]{0.45\textwidth}
+			\centering
+			\includegraphics[max width=\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_20_529798.jpg}
+			%		\input{tkImages/fig1.1.tex}
+			\caption{(第13题)}
+		\end{subfigure}
+		\hfill % 两个图片之间添加空白填充，确保左右分布
+		% 右侧图片：宽度设置为0.45倍文本宽度
+		\begin{subfigure}[h]{0.45\textwidth}
+			\centering
+			\includegraphics[max width=\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_20_500122.jpg}
+			%		\input{tkImages/fig1.2.tex}
+			\caption{	(第14题)}
+		\end{subfigure}
+%		\caption{图}
+	\end{figure}
 	
 	\item 如图, 第 1 个半圆的直径是 3 厘米, 第 2 个半圆的直径是
 	
@@ -736,20 +766,20 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 \end{problemset}
 
 \section{函数的极限}
-前面我们研究了数列的极限的概念和极限的运算法则. 从本节起, 我们将讨论函数的极限的概念和运算法则.
+前面我们研究了数列的极限的概念和极限的运算法则。 从本节起, 我们将讨论函数的极限的概念和运算法则。
 
-\section*{1.当 \(x \rightarrow \infty\) 时函数的极限}
+\section*{1. 当 \(x \rightarrow \infty\) 时函数的极限}
 
 
-我们考察函数 \(y = \frac{1}{x}\) 当 \(x\) 无限增大时的变化趋势. 为此,
+我们考察函数 \(y = \frac{1}{x}\) 当 \(x\) 无限增大时的变化趋势。 为此,
 
-我们列出下表,并作出函数 \(y = \frac{1}{x}\) 的图象 (图 1-4).
+我们列出下表,并作出函数 \(y = \frac{1}{x}\) 的图象 (图 1-4)。
 
 \begin{center}
 	\adjustbox{max width=\textwidth}{
 		\begin{tabular}{|c|c|c|c|c|c|c|c|}
 			\hline
-			\(x\) & 1 & 10 & 100 & 1000 & 10000 & 100000 & 母曲曲 \\
+			\(x\) & 1 & 10 & 100 & 1000 & 10000 & 100000 & ...  \\
 			\hline
 			\(y\) & 1 & 0.1 & 0.01 & 0.001 & 0.0001 & 0.00001 & ... \\
 			\hline
@@ -757,13 +787,13 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 	}
 \end{center}
 
-从函数 \(y = \frac{1}{x}\) 的图象可以看出,当自变量 \(x\) 取正值并无限增大时,函数 \(y = \frac{1}{x}\) 的值无限趋近于零. 这里的“无限趋近于零”,就是表示函数值 \(y\) 与 0 之差的绝对值 \(\left| {y - 0}\right|\) 可以变得任意小.
+从函数 \(y = \frac{1}{x}\) 的图象可以看出,当自变量 \(x\) 取正值并无限增大时,函数 \(y = \frac{1}{x}\) 的值无限趋近于零。 这里的“无限趋近于零”,就是表示函数值 \(y\) 与 0 之差的绝对值 \(\left| {y - 0}\right|\) 可以变得任意小。
 
-\begin{center}
-	\includegraphics[max width=0.4\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_21_654074.jpg}
-\end{center}
-
-图 1-4
+\begin{figure}[h]
+	\centering
+	\includegraphics[max width=0.8\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_21_654074.jpg}
+	\caption{图1-4}
+\end{figure}
 
 例如,当 \(x\) 大于 1000 时,
 
@@ -783,13 +813,13 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 \left| {y - 0}\right| = \frac{1}{x} < \varepsilon
 \]
 
-总之,当 \(x\) 取正值并无限增大时,函数 \(y = \frac{1}{x}\) 的值无限趋近于 0 . 于是我们说,当 \(x\) 趋向于正无穷大时,函数 \(y = \frac{1}{x}\) 的极限是 0 , 记作
+总之,当 \(x\) 取正值并无限增大时,函数 \(y = \frac{1}{x}\) 的值无限趋近于 0 。 于是我们说,当 \(x\) 趋向于正无穷大时,函数 \(y = \frac{1}{x}\) 的极限是 0 , 记作
 
 \[
 \mathop{\lim }\limits_{{x \rightarrow + \infty }}\frac{1}{x} = 0
 \]
 
-同样地,当 \(x\) 取负值并且它的绝对值无限增大时,函数 \(y = \frac{1}{x}\) 的值也无限趋近于 0 . 于是我们说,当 \(x\) 趋向于负无穷大时,函数 \(y = \frac{1}{x}\) 的极限是 0,记作.
+同样地,当 \(x\) 取负值并且它的绝对值无限增大时,函数 \(y = \frac{1}{x}\) 的值也无限趋近于 0 。 于是我们说,当 \(x\) 趋向于负无穷大时,函数 \(y = \frac{1}{x}\) 的极限是 0,记作
 
 \[
 \mathop{\lim }\limits_{{x \rightarrow - \infty }}\frac{1}{x} = 0
@@ -798,21 +828,21 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 一般地,当自变量 \(x\) 的绝对值无限增大时,如果函数 \(f\left( x\right)\) 无限趋近于一个常数 \(A\) ,就说当 \(x\) 趋向于无穷大时,函数 \(f\left( x\right)\) 的极限是 \(A\) ,记作
 
 \[
-\mathop{\lim }\limits_{{x \rightarrow \infty }}f\left( x\right) = A
+\mathop{\lim }\limits_{{x \rightarrow \infty }}f\left( x\right) = A \text{，}
 \]
 
 也可记作
 
-当 \(x \rightarrow \infty\) 时, \(f\left( x\right) \rightarrow A\) .
+当 \(x \rightarrow \infty\) 时, \(f\left( x\right) \rightarrow A\) 。
 
 \end{definition}
 
-\section*{2.当 \(x \rightarrow {x}_{0}\) 时函数的极限}
+\section*{2. 当 \(x \rightarrow {x}_{0}\) 时函数的极限}
 
 
-我们来研究函数 \(y = {x}^{2}\) 当 \(x\) 无限趋近于 2 时的变化趋势.
+我们来研究函数 \(y = {x}^{2}\) 当 \(x\) 无限趋近于 2 时的变化趋势。
 
-先列出下表,并作出函数 \(y = {x}^{2}\) 的图象 (图 1-5).
+先列出下表,并作出函数 \(y = {x}^{2}\) 的图象 (图 1-5)。
 
 \begin{center}
 	\adjustbox{max width=\textwidth}{
@@ -822,7 +852,7 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 			\hline
 			\(y\) & 2. 25 & 3. 61 & 3.96 & 3.996 & 3 9996 & ... \\
 			\hline
-			\(\left| {y - 4}\right|\) & 1.75 & 0.39 & 0.04 & 0.004 & 0.0004 & es \\
+			\(\left| {y - 4}\right|\) & 1.75 & 0.39 & 0.04 & 0.004 & 0.0004 & ...  \\
 			\hline
 		\end{tabular}
 	}
@@ -834,35 +864,35 @@ S = {a}_{1} + {a}_{1}q + {a}_{1}{q}^{2} + \cdots + {a}_{1}{q}^{n - 1} + \cdots =
 			\hline
 			\(x\) & 2. 5 & 2. 1 & 2.01 & 2.001 & 2.0001 & ... \\
 			\hline
-			\(y\) & 6.25 & 4.41 & 4.04 & 4.004 & 4.0004 & * \(* *\) \\
+			\(y\) & 6.25 & 4.41 & 4.04 & 4.004 & 4.0004 & ...  \\
 			\hline
-			\(\left| {y - 4}\right|\) & 2. 25 & 0.41 & 0.04 & 0.004 & 0.0004 & . \\
+			\(\left| {y - 4}\right|\) & 2. 25 & 0.41 & 0.04 & 0.004 & 0.0004 & ....  \\
 			\hline
 		\end{tabular}
 	}
 \end{center}
 
-我们看到,当自变量 \(x\) 越接近 2 时,函数 \(y = {x}^{2}\) 的值越接近 4; 当 \(x\) 无限趋近于 2 (但不等于 2 ) 时, \(y\) 的值无限趋近于 4 . 于是我们说,当 \(x\) 无限趋近于 2 时,函数 \(y = {x}^{2}\) 的极限是 4,记作
+我们看到,当自变量 \(x\) 越接近 2 时,函数 \(y = {x}^{2}\) 的值越接近 4; 当 \(x\) 无限趋近于 2 (但不等于 2 ) 时, \(y\) 的值无限趋近于 4 。 于是我们说,当 \(x\) 无限趋近于 2 时,函数 \(y = {x}^{2}\) 的极限是 4,记作
 
 \[
 \mathop{\lim }\limits_{{x \rightarrow 2}}{x}^{2} = 4\text{. }
 \]
 
-\begin{center}
-	\includegraphics[max width=0.4\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_23_174405.jpg}
-\end{center}
+\begin{figure}[h]
+	\centering
+	\includegraphics[max width=0.8\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_23_174405.jpg}
+	\caption{图1-5}
+\end{figure}
 
-图 1-5
+我们再来研究函数 \(y = \frac{{x}^{2} - 1}{x - 1}\) 当 \(x\) 无限趋近于 1 (但不等 1)时的变化趋势。
 
-我们再来研究函数 \(y = \frac{{x}^{2} - 1}{x - 1}\) 当 \(x\) 无限趋近于 1 (但不等 1)时的变化趋势.
+如图1-6,函数的图象是直线 \(y = x + 1\) 上除去点 \(\left( {1,2}\right)\) 以外的部分。 从图象上看到,当 \(x\) 接近于 1 时,函数 \(y = \frac{{x}^{2} - 1}{x - 1}\) 的值趋近于 2 。
 
-如图 1-6,函数的图象是直线 \(y = x + 1\) 上除去点 \(\left( {1,2}\right)\) 以外的部分. 从图象上看到,当 \(x\) 接近于 1 时,函数 \(y = \frac{{x}^{2} - 1}{x - 1}\) 的值趋近于 2 .
-
-\begin{center}
-	\includegraphics[max width=0.4\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_24_728399.jpg}
-\end{center}
-
-图 1-6
+\begin{figure}[h]
+	\centering
+	\includegraphics[max width=0.8\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_24_728399.jpg}
+	\caption{图1-6}
+\end{figure}
 
 这时,我们说,当 \(x\) 无限趋近于 1 (但不等于 1 ) 时, 函数
 
@@ -886,7 +916,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 
 或者
 
-当 \(x \rightarrow {x}_{0}\) 时, \(f\left( x\right) \rightarrow A\) .
+当 \(x \rightarrow {x}_{0}\) 时, \(f\left( x\right) \rightarrow A\) 。
 
 \end{definition}
 
@@ -904,7 +934,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 \mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}x = {x}_{0}
 \]
 
-\section*{3.函数的左极限和右极限}
+\section*{3. 函数的左极限和右极限}
 
 首先,我们介绍在微积分中常常用到的函数 \(y = \left\lbrack x\right\rbrack\) ,符号 \(\left\lbrack x\right\rbrack\) 表示不超过数 \(x\) 的整数部分,例如
 
@@ -912,19 +942,19 @@ y = \frac{{x}^{2} - 1}{x - 1}
 \left\lbrack 0\right\rbrack = 0,\left\lbrack \frac{10}{3}\right\rbrack = \left\lbrack {{3.33}\cdots \cdots }\right\rbrack = 3,\;\left\lbrack {-{2.5}}\right\rbrack = - 3.
 \]
 
-函数 \(y = \left\lbrack x\right\rbrack\) 的图象如图 1-7.
+函数 \(y = \left\lbrack x\right\rbrack\) 的图象如图 1-7。
 
-现在,我们再来研究函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 1\) 处的极限.
+现在,我们再来研究函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 1\) 处的极限。
 
-如图 1-7,当 \(x\) 从点 \(x = 1\) 的左侧趋近于 1 时,函数 \(y\) 趋近于 0 ; 当 \(x\) 从点 \(x = 1\) 的右侧趋近于 1 时,函数 \(y\) 趋近于 1 . 因此,当 \(x\) 从点 \(x = 1\) 的左侧和右侧分别趋近于 1 时,函数 \(y\) 所趋近的值不同. 根据函数在一点处的极限的定义,函数 \(y\) 的极限不存在.
+如图 1-7,当 \(x\) 从点 \(x = 1\) 的左侧趋近于 1 时,函数 \(y\) 趋近于 0 ; 当 \(x\) 从点 \(x = 1\) 的右侧趋近于 1 时,函数 \(y\) 趋近于 1 。 因此,当 \(x\) 从点 \(x = 1\) 的左侧和右侧分别趋近于 1 时,函数 \(y\) 所趋近的值不同。 根据函数在一点处的极限的定义,函数 \(y\) 的极限不存在。
 
-\begin{center}
-	\includegraphics[max width=0.4\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_25_214056.jpg}
-\end{center}
+\begin{figure}[h]
+	\centering
+	\includegraphics[max width=0.8\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_25_214056.jpg}
+	\caption{图1-7}
+\end{figure}
 
-图 1-7
-
-从这个例子我们看到,虽然函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 1\) 处没有极限,但是当 \(x\) 从点 \(x = 1\) 的一侧趋近于 1 时,函数 \(y\) 还是趋近于确定的常数. 由此我们引出单侧极限的定义.
+从这个例子我们看到,虽然函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 1\) 处没有极限,但是当 \(x\) 从点 \(x = 1\) 的一侧趋近于 1 时,函数 \(y\) 还是趋近于确定的常数。 由此我们引出单侧极限的定义。
 
 \begin{definition}[单侧极限] 
 
@@ -943,6 +973,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 \end{definition}
 
 根据极限、左极限和右极限的定义, 可以得出表示它们之间的关系的一条定理 (证明从略):
+
 \begin{theorem}[定理] 
 
 \(\mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}f\left( x\right) = A\) 的充要条件是
@@ -954,13 +985,13 @@ y = \frac{{x}^{2} - 1}{x - 1}
 \end{theorem}
 
 \begin{problemset}[练习]
-	\item 给定函数 \(y = \frac{1}{{x}^{2} + 1}\) . 填写下表并画出函数的图象,观察函数 \(y\) 当 \(x \rightarrow \infty\) 时的变化趋势:
+	\item 给定函数 \(y = \frac{1}{{x}^{2} + 1}\) 。 填写下表并画出函数的图象,观察函数 \(y\) 当 \(x \rightarrow \infty\) 时的变化趋势:
 	
 	\begin{center}
 		\adjustbox{max width=\textwidth}{
 			\begin{tabular}{|c|c|c|c|c|c|c|}
 				\hline
-				\(x\) & 0 & \(\pm 2\) & \(\pm {10}\) & \(\pm {10}^{2}\) & \(\pm {10}^{3}\) & est \\
+				\(x\) & 0 & \(\pm 2\) & \(\pm {10}\) & \(\pm {10}^{2}\) & \(\pm {10}^{3}\) & ...  \\
 				\hline
 				\(y\) & \phantom{X} & \phantom{X} & \phantom{X} & \phantom{X} & \phantom{X} & \phantom{X} \\
 				\hline
@@ -1006,7 +1037,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 	
 	（1）当 \(\left| {x - 1}\right| < {0.01}\) 时, \(\left| {y - 3}\right|\) 小于什么数? 当 \(\left| {x - 1}\right|\) \(< {0.00001}\) 时, \(\left| {y - 3}\right|\) 小于什么数?
 	
-	（2）说出当 \(x \rightarrow 1\) 时函数 \(y\) 的极限.
+	（2）说出当 \(x \rightarrow 1\) 时函数 \(y\) 的极限。
 	
 	\item 根据函数极限的定义和函数的图象, 说出下列函数的极限 (其中 \(C\) 是常数):
 	
@@ -1016,15 +1047,17 @@ y = \frac{{x}^{2} - 1}{x - 1}
 	
 	\item 说出下列各图中表示的函数在点 \(x = a\) 的左极限、右极限和极限 (如果存在的话):
 	
-	\begin{center}
+	\begin{figure}[h]
+		\centering
 		\includegraphics[max width=0.8\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_27_586841.jpg}
-	\end{center}
+%		\caption{图}
+	\end{figure}
 	
 \end{problemset}
 
 \section{函数极限的四则运算法则}
 
-函数极限的四则运算与数列极限的四则运算有类似的定理.
+函数极限的四则运算与数列极限的四则运算有类似的定理。
 
 如果 \(\mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}f\left( x\right) = A,\mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}g\left( x\right) = B\) ,那么,
 
@@ -1040,7 +1073,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 \mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}\frac{f\left( x\right) }{g\left( x\right) } = \frac{A}{B}\left( {B \neq 0}\right) .
 \]
 
-这个定理对于 \(x \rightarrow \infty\) 的情况仍然成立.
+这个定理对于 \(x \rightarrow \infty\) 的情况仍然成立。
 
 由上面第二个式子可以推出: 当 \(C\) 是常数、 \(n\) 是正整数时,
 
@@ -1052,7 +1085,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 \mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}{\left\lbrack f\left( x\right) \right\rbrack }^{n} = {\left\lbrack \mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}f\left( x\right) \right\rbrack }^{n}.
 \]
 
-利用函数极限的运算法则, 我们可以根据已知的几个函数的极限, 求出较复杂的函数的极限.
+利用函数极限的运算法则, 我们可以根据已知的几个函数的极限, 求出较复杂的函数的极限。
 
 例 1 求 \(\mathop{\lim }\limits_{{x \rightarrow 2}}\left( {{x}^{2} + {3x}}\right)\) .
 
@@ -1088,7 +1121,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 
 例 3 求 \(\mathop{\lim }\limits_{{x \rightarrow 4}}\frac{{x}^{2} - {16}}{x - 4}\) .
 
-分析: 当 \(x \rightarrow 4\) 时,分母的极限是 0,不能直接运用上面的极限运算法则. 因为当 \(x \rightarrow 4\) 时函数的极限,只与 \(x\) 无限趋近于 4 时的函数值有关,与 \(x = 4\) 时的函数值无关,因此可以先将分子和分母约去公因式 \(x - 4\) 以后再求函数的极限.
+分析: 当 \(x \rightarrow 4\) 时,分母的极限是 0,不能直接运用上面的极限运算法则。 因为当 \(x \rightarrow 4\) 时函数的极限,只与 \(x\) 无限趋近于 4 时的函数值有关,与 \(x = 4\) 时的函数值无关,因此可以先将分子和分母约去公因式 \(x - 4\) 以后再求函数的极限。
 
 解: \(\mathop{\lim }\limits_{{x \rightarrow 4}}\frac{{x}^{2} - {16}}{x - 4} = \mathop{\lim }\limits_{{x \rightarrow 4}}\frac{\left( {x + 4}\right) \left( {x - 4}\right) }{x - 4}\)
 
@@ -1102,7 +1135,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 
 例 4 求 \(\mathop{\lim }\limits_{{x \rightarrow \infty }}\frac{3{x}^{2} - x + 2}{{x}^{2} + 1}\) .
 
-分析: 当 \(x \rightarrow \infty\) 时,分子、分母没有极限,不能直接运用上面的商的极限运算法则. 为此,先将分子、分母同时除以 \({x}^{2}\) 后, 再求它的极限.
+分析: 当 \(x \rightarrow \infty\) 时,分子、分母没有极限,不能直接运用上面的商的极限运算法则。 为此,先将分子、分母同时除以 \({x}^{2}\) 后, 再求它的极限。
 
 解: \(\mathop{\lim }\limits_{{x \rightarrow \infty }}\frac{3{x}^{2} - x + 2}{{x}^{2} + 1} = \mathop{\lim }\limits_{{x \rightarrow \infty }}\frac{\frac{3{x}^{2}}{{x}^{2}} - \frac{x}{{x}^{2}} + \frac{2}{{x}^{2}}}{\frac{{x}^{2}}{{x}^{2}} + \frac{1}{{x}^{2}}}\)
 
@@ -1132,7 +1165,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 \mathop{\lim }\limits_{{x \rightarrow \infty }}C = C,\;\mathop{\lim }\limits_{{x \rightarrow \infty }}\frac{1}{{x}^{k}} = 0\text{ ( }k\text{ 是正整数). }
 \]
 
-这些极限可以由极限的定义和运算法则推出, 以后可以直接运用这些结果.
+这些极限可以由极限的定义和运算法则推出, 以后可以直接运用这些结果。
 
 例 5 求 \(\mathop{\lim }\limits_{{x \rightarrow \infty }}\frac{2{x}^{2} + x - 4}{3{x}^{3} - {x}^{2} + 1}\) .
 
@@ -1145,7 +1178,6 @@ y = \frac{{x}^{2} - 1}{x - 1}
 \[
 = \frac{0 + 0 - 0}{3 - 0 + 0} = 0\text{. }
 \]
-
 
 \begin{problemset}[练习]
 \item 利用函数极限的运算法则求下列极限:
@@ -1161,6 +1193,7 @@ y = \frac{{x}^{2} - 1}{x - 1}
 (3) \(\mathop{\lim }\limits_{{x \rightarrow \infty }}\frac{2{x}^{2} + x - 2}{3{x}^{2} - {3x} + 1}\) (4) \(\mathop{\lim }\limits_{{y \rightarrow \infty }}\frac{2{y}^{2} - y}{{y}^{3} - 5}\) .
 
 \end{problemset}
+
 \begin{problemset}[习 题 二]
 
 \item 根据函数极限的定义, 说出下列极限:
@@ -1195,22 +1228,22 @@ y = \frac{{x}^{2} - 1}{x - 1}
 
 (3) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{x - {x}^{2} - 6{x}^{3}}{{2x} - 5{x}^{2} - 3{x}^{3}}\) ; (4) \(\mathop{\lim }\limits_{{x \rightarrow \infty }}\frac{x - {x}^{2} - 6{x}^{3}}{{2x} - 5{x}^{2} - 3{x}^{3}}\) .
 \end{problemset}
+
 \section{函数的连续性}
-我们以前学过的许多函数,例如 \(y = {x}^{2}\) ,它的图象是连续 (不间断) 的曲线. 对于连续曲线 \(y = f\left( x\right)\) 上的每一点 \({x}_{0}\) 来说,当 \(x \rightarrow {x}_{0}\) 时,都有 \(f\left( x\right) \rightarrow f\left( {x}_{0}\right)\) .
+
+我们以前学过的许多函数,例如 \(y = {x}^{2}\) ,它的图象是连续 (不间断) 的曲线。 对于连续曲线 \(y = f\left( x\right)\) 上的每一点 \({x}_{0}\) 来说,当 \(x \rightarrow {x}_{0}\) 时,都有 \(f\left( x\right) \rightarrow f\left( {x}_{0}\right)\) 。
 
 \begin{definition}[函数的连续性] 
-
 如果函数 \(y = f\left( x\right)\) 在点 \({x}_{0}\) 的附近有定义,而且
 
 \[
 \mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}f\left( x\right) = f\left( {x}_{0}\right)
 \]
 
-就说函数 \(f\left( x\right)\) 在点 \({x}_{0}\) 处连续.
-
+就说函数 \(f\left( x\right)\) 在点 \({x}_{0}\) 处连续。
 \end{definition}
 
-例 1 研究函数 \(f\left( x\right) = {x}^{2}\) 在点 \(x = 2\) 处的连续性.
+例 1 研究函数 \(f\left( x\right) = {x}^{2}\) 在点 \(x = 2\) 处的连续性。
 
 解: 函数 \(f\left( x\right) = {x}^{2}\) 在点 \(x = 2\) 的附近有定义,而且
 
@@ -1228,7 +1261,7 @@ f\left( 2\right) = {2}^{2} = 4,
 \mathop{\lim }\limits_{{x \rightarrow 2}}{x}^{2} = f\left( 2\right) \text{. }
 \]
 
-因此,函数 \(f\left( x\right) = {x}^{2}\) 在点 \(x = 2\) 处连续.
+因此,函数 \(f\left( x\right) = {x}^{2}\) 在点 \(x = 2\) 处连续。
 
 从上面的定义可以看出,函数 \(f\left( x\right)\) 在点 \(x = {x}_{0}\) 处连续必须具备以下三个条件:
 
@@ -1236,15 +1269,15 @@ f\left( 2\right) = {2}^{2} = 4,
 
 2. \(\mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}f\left( x\right)\) 存在;
 
-3. \(\mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}f\left( x\right) = f\left( {x}_{0}\right)\) ,即函数 \(f\left( x\right)\) 在点 \({x}_{0}\) 处的极限等于 \(f\left( x\right)\) 在点 \({x}_{0}\) 的函数值.
+3. \(\mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}f\left( x\right) = f\left( {x}_{0}\right)\) ,即函数 \(f\left( x\right)\) 在点 \({x}_{0}\) 处的极限等于 \(f\left( x\right)\) 在点 \({x}_{0}\) 的函数值。
 
-如果函数 \(f\left( x\right)\) 在点 \(x = {x}_{0}\) 处对上述三个条件中有一个条件不具备,那么函数在点 \(x = {x}_{0}\) 处不连续,点 \(x = {x}_{0}\) 称为该函数的间断点.
+如果函数 \(f\left( x\right)\) 在点 \(x = {x}_{0}\) 处对上述三个条件中有一个条件不具备,那么函数在点 \(x = {x}_{0}\) 处不连续,点 \(x = {x}_{0}\) 称为该函数的间断点。
 
-例如,函数 \(y = \operatorname{tg}x\) 在点 \(x = \frac{\pi }{2}\) 处没有定义,所以 \(x = \frac{\pi }{2}\) 是函数 \(y = \operatorname{tg}x\) 的间断点.
+例如,函数 \(y = \operatorname{tg}x\) 在点 \(x = \frac{\pi }{2}\) 处没有定义,所以 \(x = \frac{\pi }{2}\) 是函数 \(y = \operatorname{tg}x\) 的间断点。
 
 \begin{definition}[单侧连续性] 
 
-下面我们给出函数 \(f\left( x\right)\) 在点 \({x}_{0}\) 处右连续和左连续的定义.
+下面我们给出函数 \(f\left( x\right)\) 在点 \({x}_{0}\) 处右连续和左连续的定义。
 
 如果函数 \(f\left( x\right)\) 在点 \({x}_{0}\) 附近右侧 (或左侧) 有定义,而且
 
@@ -1256,9 +1289,9 @@ f\left( 2\right) = {2}^{2} = 4,
 
 \end{definition}
 
-例 2 研究函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 2\) 处的连续性.
+例 2 研究函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 2\) 处的连续性。
 
-解: 函数 \(y = \left\lbrack x\right\rbrack\) 在 \(x = 2\) 的附近有定义 (参看图 1-7).
+解: 函数 \(y = \left\lbrack x\right\rbrack\) 在 \(x = 2\) 的附近有定义 (参看图 1-7)。
 
 由于
 
@@ -1266,32 +1299,30 @@ f\left( 2\right) = {2}^{2} = 4,
 \mathop{\lim }\limits_{{x \rightarrow 2 + }}\left\lbrack x\right\rbrack = 2 = \left\lbrack 2\right\rbrack ,\;\mathop{\lim }\limits_{{x \rightarrow 2 - }}\left\lbrack x\right\rbrack = 1 \neq \left\lbrack 2\right\rbrack ,
 \]
 
-所以函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 2\) 处是右连续,但不是左连续.
+所以函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 2\) 处是右连续,但不是左连续。
 
-由于当 \(x \rightarrow 2\) 时函数 \(\left\lbrack x\right\rbrack\) 没有极限,所以函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 2\) 处不连续.
+由于当 \(x \rightarrow 2\) 时函数 \(\left\lbrack x\right\rbrack\) 没有极限,所以函数 \(y = \left\lbrack x\right\rbrack\) 在点 \(x = 2\) 处不连续。
 
 \begin{definition}[区间连续性] 
 
-如果函数 \(f\left( x\right)\) 在某一区间 \(\left( {a,b}\right)\) 内每一点处都连续,就说 \(f\left( x\right)\) 在区间 \(\left( {\mathbf{a},\mathbf{b}}\right)\) 内连续,或者说 \(f\left( x\right)\) 是区间 \(\left( {\mathbf{a},\mathbf{b}}\right)\) 内的连续函数.
+如果函数 \(f\left( x\right)\) 在某一区间 \(\left( {a,b}\right)\) 内每一点处都连续,就说 \(f\left( x\right)\) 在区间 \(\left( {\mathbf{a},\mathbf{b}}\right)\) 内连续,或者说 \(f\left( x\right)\) 是区间 \(\left( {\mathbf{a},\mathbf{b}}\right)\) 内的连续函数。
 
-如果函数 \(f\left( x\right)\) 在开区间 \(\left( {a,b}\right)\) 内连续,在左端点 \(x = a\) 处右连续,在右端点 \(x = b\) 处左连续,就说函数 \(f\left( x\right)\) 在闭区间 \(\left\lbrack {a,b}\right\rbrack\) 上连续.
+如果函数 \(f\left( x\right)\) 在开区间 \(\left( {a,b}\right)\) 内连续,在左端点 \(x = a\) 处右连续,在右端点 \(x = b\) 处左连续,就说函数 \(f\left( x\right)\) 在闭区间 \(\left\lbrack {a,b}\right\rbrack\) 上连续。
 
 \end{definition}
 
-例如,函数 \(y = 1 - {x}^{2}\) 在闭区间 \(\left\lbrack {-1,1}\right\rbrack\) 上连续. 而函数 \(y = \frac{1}{x}\) 在开区间 \(\left( {0,1}\right)\) 内连续,在闭区间 \(\left\lbrack {0,1}\right\rbrack\) 上不连续,因为它在点 \(x = 0\) 不是右连续.
+例如,函数 \(y = 1 - {x}^{2}\) 在闭区间 \(\left\lbrack {-1,1}\right\rbrack\) 上连续。 而函数 \(y = \frac{1}{x}\) 在开区间 \(\left( {0,1}\right)\) 内连续,在闭区间 \(\left\lbrack {0,1}\right\rbrack\) 上不连续,因为它在点 \(x = 0\) 不是右连续。
 
-在区间上连续的函数的图象, 是一条连续的曲线. 利用闭区间上连续函数的图象可以说明它具有如下的性质.
+在区间上连续的函数的图象, 是一条连续的曲线。 利用闭区间上连续函数的图象可以说明它具有如下的性质。
 
-\begin{center}
-	\includegraphics[max width=0.4\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_34_898703.jpg}
-\end{center}
-
-图 1-8
+\begin{figure}[h]
+	\centering
+	\includegraphics[max width=0.8\textwidth]{images/01912c18-5c3f-733d-b775-749ba9897a9d_34_898703.jpg}
+	\caption{图1-8}
+\end{figure}
 
 \begin{property}
-
-(最大值和最小值定理) 如果 \(f\left( x\right)\) 是闭区间 \(\left\lbrack {a,b}\right\rbrack\) 上的连续函数,那么 \(f\left( x\right)\) 在 \(\left\lbrack {a,b}\right\rbrack\) 上有最大值和最小值.
-
+(最大值和最小值定理) 如果 \(f\left( x\right)\) 是闭区间 \(\left\lbrack {a,b}\right\rbrack\) 上的连续函数,那么 \(f\left( x\right)\) 在 \(\left\lbrack {a,b}\right\rbrack\) 上有最大值和最小值。
 \end{property}
 
 如图 1-8, \(f\left( {x}_{1}\right) \geq f\left( x\right) ,x \in \left\lbrack {a,b}\right\rbrack\) ;
@@ -1300,7 +1331,7 @@ f\left( 2\right) = {2}^{2} = 4,
 f\left( {x}_{0}\right) \leq f\left( x\right) ,\;x \in \left\lbrack {a,b}\right\rbrack .
 \]
 
-利用函数极限的运算法则, 还可以证明连续函数的和、 差、积、商仍然是连续函数.
+利用函数极限的运算法则, 还可以证明连续函数的和、 差、积、商仍然是连续函数。
 
 \begin{property}
 
@@ -1312,7 +1343,7 @@ f\left( {x}_{0}\right) \leq f\left( x\right) ,\;x \in \left\lbrack {a,b}\right\r
 \item \(\frac{f\left( x\right) }{g\left( x\right) }\;\left( {g\left( x\right) \neq 0}\right)\)
 \end{enumerate}
 
-在点 \(x = {x}_{0}\) 处都连续.
+在点 \(x = {x}_{0}\) 处都连续。
 
 \end{property}
 
@@ -1332,12 +1363,11 @@ f\left( {x}_{0}\right) \leq f\left( x\right) ,\;x \in \left\lbrack {a,b}\right\r
 = f\left( {x}_{0}\right) \pm g\left( {x}_{0}\right) \text{.}
 \]
 
-因此,函数 \(f\left( x\right) \pm g\left( x\right)\) 在点 \(x = {x}_{0}\) 处连续.
+因此,函数 \(f\left( x\right) \pm g\left( x\right)\) 在点 \(x = {x}_{0}\) 处连续。
 
-同样可以证明(2)和(3).
+同样可以证明(2)和(3)。
 
 \begin{problemset}[练习]
-
 
 \item 连续函数的图象有什么特点? 观察下列各函数图象, 说出函数在 \(x = a\) 处是否连续:
 
@@ -1380,8 +1410,34 @@ f\left( {x}_{0}\right) \leq f\left( x\right) ,\;x \in \left\lbrack {a,b}\right\r
 	\makebox[0.3\textwidth][c]{(9)}
 \end{tabular}
 
-
 (第 1 题)
+
+
+
+%\begin{figure}[htbp]
+%	\centering
+%	% 3x3网格布局
+%	\begin{tabular}{ccc} % 三列居中对齐
+%		% 第一行
+%		\input{tikz1.tex} & 
+%		\input{tikz2.tex} & 
+%		\input{tikz3.tex} \\[10pt] % 行间距
+%		
+%		% 第二行
+%		\input{tikz4.tex} & 
+%		\input{tikz5.tex} & 
+%		\input{tikz6.tex} \\[10pt] % 行间距
+%		
+%		% 第三行
+%		\input{tikz7.tex} & 
+%		\input{tikz8.tex} & 
+%		\input{tikz9.tex} \\
+%	\end{tabular}
+%	\caption{(第1题)}  % 9个TikZ图片的3x3网格布局
+%	\label{fig:tikz-grid}
+%\end{figure}
+
+
 
 \item 结合下列函数的图象, 说明函数在给定点或区间上是否连续:
 
@@ -1394,7 +1450,7 @@ f\left( {x}_{0}\right) \leq f\left( x\right) ,\;x \in \left\lbrack {a,b}\right\r
 \end{problemset}
 
 \subsection*{复合函数的连续性}
-我们学过的函数可以分为以下五类: .
+我们学过的函数可以分为以下五类: 
 
 幂函数 \(y = {x}^{\alpha }\) ( \(\alpha\) 是实数); 0.5
 
@@ -1406,23 +1462,23 @@ f\left( {x}_{0}\right) \leq f\left( x\right) ,\;x \in \left\lbrack {a,b}\right\r
 
 反三角函数 \(y = \arcsin x,y = \arccos x,y = \operatorname{arctg}x\) ,
 
-\(y = \operatorname{arcctg}x\) ,等等. 这五种函数统称基本初等函数.
+\(y = \operatorname{arcctg}x\) ,等等。 这五种函数统称基本初等函数。
 
 关于基本初等函数的连续性有如下结论:
 
-基本初等函数在其定义区间上是连续函数.
+基本初等函数在其定义区间上是连续函数。
 
-例如, \(y = {x}^{\frac{1}{2}}\) 在 \(\lbrack 0, + \infty )\) 上连续, \(y = \sin x\) 在 \(\left( {-\infty , + \infty }\right)\) 上连续, \(y = \operatorname{tg}x\) 在 \(\left( {{n\pi } - \frac{\pi }{2},{n\pi } + \frac{\pi }{2}}\right)\) 上连续.
+例如, \(y = {x}^{\frac{1}{2}}\) 在 \(\lbrack 0, + \infty )\) 上连续, \(y = \sin x\) 在 \(\left( {-\infty , + \infty }\right)\) 上连续, \(y = \operatorname{tg}x\) 在 \(\left( {{n\pi } - \frac{\pi }{2},{n\pi } + \frac{\pi }{2}}\right)\) 上连续。
 
-我们以前学过的许多函数是由基本初等函数和常数经过有限次四则运算得出的. 例如, 二次函数
+我们以前学过的许多函数是由基本初等函数和常数经过有限次四则运算得出的。 例如, 二次函数
 
 \[
 y = a{x}^{2} + {bx} + c
 \]
 
-可以看作是由常数 \(a\) 乘以幂函数 \({x}^{2}\) 的积,加上常数 \(b\) 乘以幂函数 \(x\) 的积,再加上常数 \(c\) 而得到的一个函数.
+可以看作是由常数 \(a\) 乘以幂函数 \({x}^{2}\) 的积,加上常数 \(b\) 乘以幂函数 \(x\) 的积,再加上常数 \(c\) 而得到的一个函数。
 
-另外还有一些函数,例如 \(y = \sin {2x}\) ,它和 \(y = \sin x\) 不同, 不是基本初等函数. 下面我们将会看到, 它是由三角函数 \(y = \sin u\) 和一次函数 \(u = {2x}\) 经过 “复合”而成的.
+另外还有一些函数,例如 \(y = \sin {2x}\) ,它和 \(y = \sin x\) 不同, 不是基本初等函数。 下面我们将会看到, 它是由三角函数 \(y = \sin u\) 和一次函数 \(u = {2x}\) 经过 “复合”而成的。
 
 同样, 函数
 
@@ -1430,7 +1486,7 @@ y = a{x}^{2} + {bx} + c
 y = \sqrt{1 + {x}^{2}}
 \]
 
-是由幂函数 \(y = {u}^{\frac{1}{2}}\) 和二次函数 \(u = 1 + {x}^{2}\) 经过 “复合”而成的.
+是由幂函数 \(y = {u}^{\frac{1}{2}}\) 和二次函数 \(u = 1 + {x}^{2}\) 经过 “复合”而成的。
 
 \begin{definition}[复合函数] 
 
@@ -1440,7 +1496,7 @@ y = \sqrt{1 + {x}^{2}}
 y = f\left\lbrack {g\left( x\right) }\right\rbrack
 \]
 
-叫做函数 \(f\) 和 \(g\) 的复合函数, \(u\) 叫做中间变量.
+叫做函数 \(f\) 和 \(g\) 的复合函数, \(u\) 叫做中间变量。
 
 \end{definition}
 
@@ -1450,33 +1506,32 @@ y = f\left\lbrack {g\left( x\right) }\right\rbrack
 
 解: (1) \(\lg \sin x\) ;
 
-(2) \(\sin \left( {\lg x}\right)\) .
+(2) \(\sin \left( {\lg x}\right)\) 。
 
-复合函数也可以是由三个或三个以上的函数复合而成的.
+复合函数也可以是由三个或三个以上的函数复合而成的。
 
 例 2 说出下列函数是由哪几个简单的函数复合而成的:
 
 (1) \(y = a\sin \left( {{bt} + c}\right)\) ;
 
-(2) \(y = {\log }_{a}{\left( 1 + x\right) }^{2}\) .
+(2) \(y = {\log }_{a}{\left( 1 + x\right) }^{2}\) 。
 
-解: (1) \(y = a\sin \left( {{bt} + c}\right)\) 可以看成是 \(y = a\sin u\) 和 \(u =\) \({bt} + c\) 两个函数复合而成的.
+解: (1) \(y = a\sin \left( {{bt} + c}\right)\) 可以看成是 \(y = a\sin u\) 和 \(u =\) \({bt} + c\) 两个函数复合而成的。
 
-（2） \(y = {\log }_{a}{\left( 1 + x\right) }^{2}\) 可以看成是由 \(y = {\log }_{a}u,u = {v}^{2},v =\) \(1 + x\) 三个函数复合而成的.
+（2） \(y = {\log }_{a}{\left( 1 + x\right) }^{2}\) 可以看成是由 \(y = {\log }_{a}u,u = {v}^{2},v =\) \(1 + x\) 三个函数复合而成的。
 
 一般地, 关于复合函数连续性有如下结论:
+
 \begin{definition}[复合函数连续性] 
-
-如果函数 \(u = g\left( x\right)\) 在点 \(x = {x}_{0}\) 处连续, \(g\left( {x}_{0}\right) = {u}_{0}\) ,且函数 \(y = f\left( u\right)\) 在点 \(u = {u}_{0}\) 处连续,那么复合函数 \(y = f\left\lbrack {g\left( x\right) }\right\rbrack\) 在点 \({x}_{0}\) 处连续.
-
+如果函数 \(u = g\left( x\right)\) 在点 \(x = {x}_{0}\) 处连续, \(g\left( {x}_{0}\right) = {u}_{0}\) ,且函数 \(y = f\left( u\right)\) 在点 \(u = {u}_{0}\) 处连续,那么复合函数 \(y = f\left\lbrack {g\left( x\right) }\right\rbrack\) 在点 \({x}_{0}\) 处连续。
 \end{definition}
 
-由基本初等函数和常数经过有限次四则运算和有限次函数的复合而得出的函数, 统称初等函数.
+由基本初等函数和常数经过有限次四则运算和有限次函数的复合而得出的函数, 统称初等函数。
 
 由基本初等函数的连续性、连续函数的性质 2 和复合函数的连续性可以得出如下结论:
 
 \begin{conclusion}
-	一切初等函数在它们的定义区间上是连续函数.
+	一切初等函数在它们的定义区间上是连续函数。
 \end{conclusion}
 
 根据这条结论, 函数
@@ -1489,9 +1544,9 @@ y = \frac{{ax} + b}{c{x}^{2} + d},\;y = a\sin \left( {{\omega t} + \varphi }\rig
 y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{2}x},\;y = \frac{{e}^{x} - {e}^{-x}}{2}
 \]
 
-都是在其定义区间上的连续函数.
+都是在其定义区间上的连续函数。
 
-这个结论不仅给我们提供了判断一个函数是不是连续函数的根据, 而且为我们提供了计算初等函数的极限问题的一种方法. 这种方法是: 如果函数 \(f\left( x\right)\) 是初等函数,而且点 \({x}_{0}\) 是函数定义区间内的一点,那么求 \(x \rightarrow {x}_{0}\) 时函数 \(f\left( x\right)\) 的极限,只要求出 \(f\left( x\right)\) 在点 \({x}_{0}\) 处的函数值 \(f\left( {x}_{0}\right)\) 就可以了.
+这个结论不仅给我们提供了判断一个函数是不是连续函数的根据, 而且为我们提供了计算初等函数的极限问题的一种方法。 这种方法是: 如果函数 \(f\left( x\right)\) 是初等函数,而且点 \({x}_{0}\) 是函数定义区间内的一点,那么求 \(x \rightarrow {x}_{0}\) 时函数 \(f\left( x\right)\) 的极限,只要求出 \(f\left( x\right)\) 在点 \({x}_{0}\) 处的函数值 \(f\left( {x}_{0}\right)\) 就可以了。
 
 例 3 利用初等函数的连续性, 求下列极限:
 
@@ -1499,7 +1554,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 (3) \(\mathop{\lim }\limits_{{x \rightarrow \frac{\pi }{2}}}\ln \sin x\) ;
 
-(4) \(\mathop{\lim }\limits_{{x \rightarrow a}}\sqrt{1 + {\operatorname{arctg}}^{2}\frac{x}{a}}\;\left( {a \neq 0}\right)\) .
+(4) \(\mathop{\lim }\limits_{{x \rightarrow a}}\sqrt{1 + {\operatorname{arctg}}^{2}\frac{x}{a}}\;\left( {a \neq 0}\right)\) 。
 
 解: (1) \(\mathop{\lim }\limits_{{x \rightarrow 1}}\sqrt{3 + {x}^{2}} = \sqrt{3 + {1}^{2}} = 2\) ;
 
@@ -1519,7 +1574,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 例 4 求下列极限:
 
-(1) \(\mathop{\lim }\limits_{{x \rightarrow 1}}\frac{\left( {x - 1}\right) \sqrt{2 - x}}{{x}^{4} - 1}\) ; (2) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sqrt{1 + x} - 1}{x}\) .
+(1) \(\mathop{\lim }\limits_{{x \rightarrow 1}}\frac{\left( {x - 1}\right) \sqrt{2 - x}}{{x}^{4} - 1}\) ; (2) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sqrt{1 + x} - 1}{x}\) 。
 
 解: (1) \(\mathop{\lim }\limits_{{x \rightarrow 1}}\frac{\left( {x - 1}\right) \sqrt{2 - x}}{{x}^{4} - 1} = \mathop{\lim }\limits_{{x \rightarrow 1}}\frac{\sqrt{2 - x}}{{x}^{3} + {x}^{2} + x + 1}\)
 
@@ -1572,16 +1627,14 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 (4) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\left( {1 + {a}^{x}}\right) \left( {1 - \cos x}\right) }{{\sin }^{2}\frac{x}{2}}\) .
 
 \end{problemset}
+
 \section{两个重要的极限}
 
-现在我们来讨论微积分中常常用到的两个重要的极限.
+现在我们来讨论微积分中常常用到的两个重要的极限。
 
+\subsection*{1. \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x}{x} = 1\)}
 
-\subsection*{1.\(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x}{x} = 1\)}
-
-
-
-为了证明这个极限, 我们先介绍一个有关极限的定理 (证明略).
+为了证明这个极限, 我们先介绍一个有关极限的定理 (证明略)。
 \begin{theorem}[定理]
 如果函数 \(f\left( x\right) ,g\left( x\right) ,h\left( x\right)\) 在点 \({x}_{0}\) 的附近满足:
 
@@ -1597,7 +1650,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 \end{theorem}
 
-现在我们来讨论 \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x}{x}\) . 为此,我们先列出当 \(x\) 接近于 0 时函数 \(\frac{\sin x}{x}\) 的值如下表,并作出函数的图象 (图 1-9).
+现在我们来讨论 \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x}{x}\) 。 为此,我们先列出当 \(x\) 接近于 0 时函数 \(\frac{\sin x}{x}\) 的值如下表,并作出函数的图象 (图 1-9)。
 
 \begin{center}
 	\adjustbox{max width=\textwidth}{
@@ -1629,9 +1682,9 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 图 1-10
 
-从上表和图 1-9 可以看出,当 \(x\) 无限趋近于 0 时,函数 \(\frac{\sin x}{x}\) 的值无限趋近于 1,即 \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x}{x} = 1\) . 下面我们利用上面的定理来证明这个结论.
+从上表和图 1-9 可以看出,当 \(x\) 无限趋近于 0 时,函数 \(\frac{\sin x}{x}\) 的值无限趋近于 1,即 \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x}{x} = 1\) 。 下面我们利用上面的定理来证明这个结论。
 
-如图 1-10,在单位圆中,以 \({OA}\) 为始边的圆心角 \(x\) (不大的正角) 是用弧度来度量的,角的终边与圆相交于 \(P.{MP} \bot\) \({OA},{AN}\) 是过圆 \(O\) 上 \(A\) 点的切线,它和 \({OP}\) 相交于 \(N\) . 从图中知道,
+如图 1-10,在单位圆中,以 \({OA}\) 为始边的圆心角 \(x\) (不大的正角) 是用弧度来度量的,角的终边与圆相交于 \(P.{MP} \bot\) \({OA},{AN}\) 是过圆 \(O\) 上 \(A\) 点的切线,它和 \({OP}\) 相交于 \(N\) 。 从图中知道,
 
 \[
 {MP} = \sin x,\overset{⏜}{PA} = x,{AN} = \operatorname{tg}x,
@@ -1677,7 +1730,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 \cos x < \frac{\sin x}{x} < 1\text{.}
 \]
 
-因为余弦函数是连续函数,所以 \(\mathop{\lim }\limits_{{x \rightarrow 0 + }}\cos x = 1\) . 根据上面判定函数极限存在的定理,得到当 \(x\) 取正值趋近于 0 时,
+因为余弦函数是连续函数,所以 \(\mathop{\lim }\limits_{{x \rightarrow 0 + }}\cos x = 1\) 。 根据上面判定函数极限存在的定理,得到当 \(x\) 取正值趋近于 0 时,
 
 \[
 \mathop{\lim }\limits_{{x \rightarrow 0 + }}\frac{\sin x}{x} = 1
@@ -1701,9 +1754,9 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 \mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x}{x} = 1
 \]
 
-在推导这个重要极限时,用到 \({S}_{\text{扇形 }{OAP}} = \frac{1}{2}x,x\) 以弧度为单位. 一般地, 在微积分中三角函数的自变量都是实数, 它对应于以弧度为单位的角或弧.
+在推导这个重要极限时,用到 \({S}_{\text{扇形 }{OAP}} = \frac{1}{2}x,x\) 以弧度为单位。 一般地, 在微积分中三角函数的自变量都是实数, 它对应于以弧度为单位的角或弧。
 
-例 1 求 \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\operatorname{tg}x}{x}\) .
+例 1 求 \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\operatorname{tg}x}{x}\) 。
 
 解: \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\operatorname{tg}x}{x} = \mathop{\lim }\limits_{{x \rightarrow 0}}\left( {\frac{\sin x}{x} \cdot \frac{1}{\cos x}}\right)\)
 
@@ -1715,7 +1768,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 = 1 \times 1 = 1\text{.}
 \]
 
-例 2 求 \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{1 - \cos x}{{x}^{2}}\) .
+例 2 求 \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{1 - \cos x}{{x}^{2}}\) 。
 
 解: \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{1 - \cos x}{{x}^{2}} = \mathop{\lim }\limits_{{x \rightarrow 0}}\frac{2{\sin }^{2}\frac{x}{2}}{{x}^{2}}\)
 
@@ -1730,7 +1783,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 \]
 
 
-\subsection*{2.\(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{x} = e\)}
+\subsection*{2. \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{x} = e\)}
 
 我们从下表可以看出当 \(x \rightarrow + \infty\) 时函数 \({\left( 1 + \frac{1}{x}\right) }^{x}\) 的变化趋势:
 
@@ -1758,9 +1811,9 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 	}
 \end{center}
 
-同样,当 \(x \rightarrow - \infty\) 时,函数 \({\left( 1 + \frac{1}{x}\right) }^{x}\) 有相同的变化趋势 (见下页的表).
+同样,当 \(x \rightarrow - \infty\) 时,函数 \({\left( 1 + \frac{1}{x}\right) }^{x}\) 有相同的变化趋势 (见下页的表)。
 
-可以证明,当 \(x\) 趋向无穷时, \({\left( 1 + \frac{1}{x}\right) }^{x}\) 趋近于无理数 \({2.71828182845}\cdots\) ,记作 \(e\) . 即
+可以证明,当 \(x\) 趋向无穷时, \({\left( 1 + \frac{1}{x}\right) }^{x}\) 趋近于无理数 \({2.71828182845}\cdots\) ,记作 \(e\) 。 即
 
 \[
 \mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{x} = e
@@ -1794,9 +1847,9 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 \mathop{\lim }\limits_{{y \rightarrow 0}}{\left( 1 + y\right) }^{\frac{1}{y}} = e
 \]
 
-无理数 \(e\) 是自然对数的底,它在微积分和其他科学技术中经常用到.
+无理数 \(e\) 是自然对数的底,它在微积分和其他科学技术中经常用到。
 
-例 3 求 \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{-x}\) .
+例 3 求 \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{-x}\) 。
 
 解: \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{-x} = \mathop{\lim }\limits_{{x \rightarrow \infty }}\frac{1}{{\left( 1 + \frac{1}{x}\right) }^{x}}\)
 
@@ -1810,13 +1863,13 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 (1) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{x}{\sin x}\) 
 
-(2) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin {4x}}{3x}\) .
+(2) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin {4x}}{3x}\) 。
 
 \item 求下列极限:
 
 (1) \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{2x}\)
 
-(2) \(\mathop{\lim }\limits_{{x \rightarrow 0}}{\left( 1 + x\right) }^{-\frac{1}{x}}\) .
+(2) \(\mathop{\lim }\limits_{{x \rightarrow 0}}{\left( 1 + x\right) }^{-\frac{1}{x}}\) 。
 \end{problemset}
 
 \begin{problemset}[习 题 三]
@@ -1830,11 +1883,11 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 (3) \(f\left( x\right) = \frac{4{x}^{2} - 1}{{2x} - 1},x = 2\) ;
 
-(4) \(f\left( x\right) = a{x}^{3} + b{x}^{2} + {cx} + d,x = 0\) .
+(4) \(f\left( x\right) = a{x}^{3} + b{x}^{2} + {cx} + d,x = 0\) 。
 
 \item 说出下列函数在实数轴上哪些点处不连续:
 
-(1) \(y = \frac{1}{{x}^{2} + {3x} + 2}\) (2) \(y = \frac{1}{\sin x}\) .
+(1) \(y = \frac{1}{{x}^{2} + {3x} + 2}\) (2) \(y = \frac{1}{\sin x}\) 。
 
 \item 写出由下列各组函数复合而成的复合函数:
 
@@ -1848,7 +1901,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 (5) \(y = {e}^{u},u = {v}^{2},v = \operatorname{ctg}x\) ;
 
-(6) \(y = \arcsin u,u = \sqrt{v},v = \frac{x - a}{b - a}\) .
+(6) \(y = \arcsin u,u = \sqrt{v},v = \frac{x - a}{b - a}\) 。
 
 \item 下列函数是由哪几个简单函数复合而成的?
 
@@ -1856,7 +1909,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 (3) \(y = \ln {\sin }^{2}{3x}\) ; (4) \(y = {e}^{2{\cos }^{2}x}\) ;
 
-(5) \(y = \frac{1}{\sqrt{1 - \operatorname{tg}{3x}}}\) ; (6) \(y = {\left( 1 + \operatorname{arctg}{x}^{2}\right) }^{8}\) .
+(5) \(y = \frac{1}{\sqrt{1 - \operatorname{tg}{3x}}}\) ; (6) \(y = {\left( 1 + \operatorname{arctg}{x}^{2}\right) }^{8}\) 。
 
 \item 求下列极限:
 
@@ -1864,19 +1917,19 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 (3) \(\mathop{\lim }\limits_{{x \rightarrow {16}}}\frac{\sqrt[4]{x} - 2}{\sqrt{x} - 4}\) (4) \(\mathop{\lim }\limits_{{x \rightarrow 2}}\frac{\sqrt{{2x} - 2} - \sqrt{x}}{{x}^{2} - 4}\) ;
 
-(5) \(\mathop{\lim }\limits_{{\alpha \rightarrow \frac{\pi }{4}}}{\left( 1 + \sin 2\alpha \right) }^{2}\) ; (6) \(\mathop{\lim }\limits_{{x \rightarrow 2}}{\log }_{3}\left( {{x}^{3} + 1}\right)\) .
+(5) \(\mathop{\lim }\limits_{{\alpha \rightarrow \frac{\pi }{4}}}{\left( 1 + \sin 2\alpha \right) }^{2}\) ; (6) \(\mathop{\lim }\limits_{{x \rightarrow 2}}{\log }_{3}\left( {{x}^{3} + 1}\right)\) 。
 
 \item 求下列极限:
 
 (1) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{x}{\operatorname{tg}{3x}}\) (2) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin {3x}}{\sin {5x}}\)
 
-(3) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x\operatorname{tg}x}{{x}^{2}}\) (4) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{1 - \cos {2x}}{x\sin x}\) .
+(3) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x\operatorname{tg}x}{{x}^{2}}\) (4) \(\mathop{\lim }\limits_{{x \rightarrow 0}}\frac{1 - \cos {2x}}{x\sin x}\) 。
 
 \item 求下列极限:
 
 (1) \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{x + 2}\) (2) \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{2}{x}\right) }^{\frac{x}{2}}\)
 
-(3) \(\mathop{\lim }\limits_{{x \rightarrow 0}}{\left( 1 + 2x\right) }^{\frac{1}{x}}\) (4) \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 - \frac{1}{x}\right) }^{2x}\) .
+(3) \(\mathop{\lim }\limits_{{x \rightarrow 0}}{\left( 1 + 2x\right) }^{\frac{1}{x}}\) (4) \(\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 - \frac{1}{x}\right) }^{2x}\) 。
 \end{problemset}
 
 \chapter*{小 结}
@@ -1888,15 +1941,15 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 \mathop{\lim }\limits_{{x \rightarrow 0}}\frac{\sin x}{x} = 1,\;\mathop{\lim }\limits_{{x \rightarrow \infty }}{\left( 1 + \frac{1}{x}\right) }^{x} = e.
 \]
 
-二、极限是描述数列和函数在无限过程中的变化趋势的重要概念. 极限方法是人们从有限中认识无限, 从近似中认识精确, 从量变中认识质变的一种数学方法, 它是微积分的基本思想和方法.
+二、极限是描述数列和函数在无限过程中的变化趋势的重要概念。 极限方法是人们从有限中认识无限, 从近似中认识精确, 从量变中认识质变的一种数学方法, 它是微积分的基本思想和方法。
 
-数列的极限与函数的极限的运算法则是类似的: 两个数列 (或函数) 的和、差、积、商的极限分别等于这两个数列 (或函数) 的极限的和、差、积、商 (作为除数的数列或函数的极限不能为零). 运用这些运算法则, 可以简化极限的计算过程.
+数列的极限与函数的极限的运算法则是类似的: 两个数列 (或函数) 的和、差、积、商的极限分别等于这两个数列 (或函数) 的极限的和、差、积、商 (作为除数的数列或函数的极限不能为零)。 运用这些运算法则, 可以简化极限的计算过程。
 
-三、连续的概念是用极限的概念定义的, 但是连续和极限是有区别的: 极限所讨论的是函数在某一点附近的变化趋势, 而不管函数在这一点上是否有定义或取什么值; 函数在一点处连续不仅要求在这一点有极限, 而且要求极限同这一点的函数值相等.
+三、连续的概念是用极限的概念定义的, 但是连续和极限是有区别的: 极限所讨论的是函数在某一点附近的变化趋势, 而不管函数在这一点上是否有定义或取什么值; 函数在一点处连续不仅要求在这一点有极限, 而且要求极限同这一点的函数值相等。
 
-四、幂函数、指数函数、对数函数、三角函数和反三角函数, 统称基本初等函数.
+四、幂函数、指数函数、对数函数、三角函数和反三角函数, 统称基本初等函数。
 
-由基本初等函数和常数经过有限次四则运算和有限次函数的复合而得出的函数, 统称初等函数.
+由基本初等函数和常数经过有限次四则运算和有限次函数的复合而得出的函数, 统称初等函数。
 
 基本初等函数和一切初等函数在它们的定义区间上是连续函数。
 
@@ -1912,7 +1965,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 (3) \(\left\{ {\left( -\frac{1}{n}\right) }^{3}\right\}\) (4) \(\{ \sqrt{n}\}\) .
 
-3. 已知数列 \(\left\{ \frac{1}{{3}^{n}}\right\}\) ,根据下表中给出的 \(\varepsilon\) 的数值,求出相应的正整数 \(N\) ,使得当 \(n > N\) 时, \(\left| {\frac{1}{{3}^{n}} - 0}\right| < \varepsilon\) 恒成立.
+3. 已知数列 \(\left\{ \frac{1}{{3}^{n}}\right\}\) ,根据下表中给出的 \(\varepsilon\) 的数值,求出相应的正整数 \(N\) ,使得当 \(n > N\) 时, \(\left| {\frac{1}{{3}^{n}} - 0}\right| < \varepsilon\) 恒成立。
 
 \begin{center}
 	\adjustbox{max width=\textwidth}{
@@ -1926,7 +1979,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 	}
 \end{center}
 
-4. 举出两个极限是 7 的无穷数列.
+4. 举出两个极限是 7 的无穷数列。
 
 5. 举出两个没有极限的无穷数列。
 
@@ -1954,7 +2007,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 
 （1）求 \(\mathop{\lim }\limits_{{x \rightarrow {x}_{0}}}f\left( x\right)\) ;
 
-（2）当 \(m \leq n\) 时,求 \(\mathop{\lim }\limits_{{x \rightarrow \infty }}f\left( x\right)\) .
+（2）当 \(m \leq n\) 时,求 \(\mathop{\lim }\limits_{{x \rightarrow \infty }}f\left( x\right)\) 。
 
 10. 说出下列函数是怎样复合而成的:
 
@@ -2058,7 +2111,7 @@ y = {\log }_{a}{\left( 1 + x\right) }^{2},\;y = \sqrt{{a}^{2} - {b}^{2}{\cos }^{
 v = \frac{s}{t}
 \]
 
-这个速度在匀速直线运动过程中的任何时刻都是一样的.
+这个速度在匀速直线运动过程中的任何时刻都是一样的。
 
 如果物体作非匀速直线运动, 也就是说, 在运动过程的各个时刻, 物体运动的快慢不一样, 这时, 设已知物体的运动规律是 \(s = s\left( t\right)\) ,从 \({t}_{0}\) 到 \({t}_{0} + {\Delta t}({\Delta t}\) 称为时间改变量) 这段时间内, 物体的位移 (即位置改变量) 是
 
@@ -2072,11 +2125,11 @@ v = \frac{s}{t}
 \bar{v} = \frac{\Delta s}{\Delta t} = \frac{s\left( {{t}_{0} + {\Delta t}}\right) - s\left( {t}_{0}\right) }{\Delta t}.
 \]
 
-平均速度的大小反映在这段时间内物体运动快慢的平均程度.
+平均速度的大小反映在这段时间内物体运动快慢的平均程度。
 
-为了更精确地刻划非匀速运动, 还需知道物体在某一时刻的“速度”. 那么, 作非匀速直线运动的物体在某一时刻的 “速度”怎样求呢?
+为了更精确地刻划非匀速运动, 还需知道物体在某一时刻的“速度”。 那么, 作非匀速直线运动的物体在某一时刻的 “速度”怎样求呢?
 
-现在我们以自由落体运动为例, 来说明作非匀速直线运动的物体在某一时刻的“速度”的求法.
+现在我们以自由落体运动为例, 来说明作非匀速直线运动的物体在某一时刻的“速度”的求法。
 
 我们知道, 自由落体运动的方程是
 
@@ -2086,7 +2139,7 @@ s = s\left( t\right) = \frac{1}{2}g{t}^{2},
 
 这里 \(g\) 是重力加速度,通常取 \(g = {9.8}\) 米 \(/{\text{秒}}^{2}\) . 现在来求 \(t = 3\) 秒这一时刻落体的 “速度”.
 
-当 \({\Delta t}\) 很小时,从 3 秒到 \(3 + {\Delta t}\) 秒这段时间内,落体运动的快慢变化也不大, 因此, 可以用这段时间内的平均速度近似地反映落体在 3 秒时的 “速度”. 当 \({\Delta t}\) 越小时,一般来讲,这种近似就越精确. 现在我们来计算一下 \(t\) 从 3 秒 分别到 3.1 秒、 3.01 秒、 3.001 秒、 3.0001 秒、……, 各段时间内的平均速度, 把所得数据列表如下:
+当 \({\Delta t}\) 很小时,从 3 秒到 \(3 + {\Delta t}\) 秒这段时间内,落体运动的快慢变化也不大, 因此, 可以用这段时间内的平均速度近似地反映落体在 3 秒时的 “速度”。 当 \({\Delta t}\) 越小时,一般来讲,这种近似就越精确。 现在我们来计算一下 \(t\) 从 3 秒 分别到 3.1 秒、 3.01 秒、 3.001 秒、 3.0001 秒、……, 各段时间内的平均速度, 把所得数据列表如下:
 
 \begin{center}
 \adjustbox{max width=\textwidth}{
